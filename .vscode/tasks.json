@@ -1,0 +1,110 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "wipe-app",
+            "windows": {
+                "command": "rmdir /s /q ${workspaceFolderBasename}",
+            },
+            "linux": {
+                "command": "rm -r -v ${workspaceFolderBasename}",
+            },
+            "args": [],
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+        },
+        {
+            "type": "shell",
+            "label": "clean-app",
+            "windows": {
+                "command": "C:/Program Files/CMake/bin/cmake.exe",
+            },
+            "linux": {
+                "command": "cmake",
+            },
+            "args": [
+                "--build",
+                "${workspaceFolder}/build/${workspaceFolderBasename}/",
+                "--target",
+                "clean"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
+            "label": "cmake-app",
+            "windows": {
+                "command": "C:/Program Files/CMake/bin/cmake.exe",
+                "args": [
+                    "-G",
+                    "Visual Studio 17 2022",
+                    "-A",
+                    "x64",
+                    "-DCMAKE_BUILD_TYPE=Debug",
+                    "-DBUILD_DIR=${workspaceFolder}/build/${workspaceFolderBasename}",
+                    "-S",
+                    "${workspaceFolder}/sources/${workspaceFolderBasename}",
+                    "-B",
+                    "${workspaceFolder}/build/${workspaceFolderBasename}"
+                ],
+            },
+            "linux": {
+                "command": "cmake",
+                "args": [
+                    "-DCMAKE_BUILD_TYPE=Debug",
+                    "-DBUILD_DIR=${workspaceFolder}/build/${workspaceFolderBasename}",
+                    "-S",
+                    "${workspaceFolder}/sources/${workspaceFolderBasename}",
+                    "-B",
+                    "${workspaceFolder}/build/${workspaceFolderBasename}"
+                ],
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "clear": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "build-app",
+            "windows": {
+                "command": "C:/Program Files/CMake/bin/cmake.exe",
+            },
+            "linux": {
+                "command": "cmake",
+            },
+            "args": [
+                "--build",
+                "${workspaceFolder}/build/${workspaceFolderBasename}",
+                "--config",
+                "Debug",
+                "-j6"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build/${workspaceFolderBasename}"
+            },
+            "problemMatcher": {
+                "source": "${workspaceFolder}",
+                "owner": "cpp",
+                "fileLocation": [
+                    "absolute"
+                ],
+                "pattern": {
+                    "regexp": "^(?:\\s+\\d+\\>)?([^\\s].*)\\((\\d+),?(\\d+)?(?:,\\d+,\\d+)?\\)\\s*:\\s+(error|warning|info)\\s+(\\w{1,2}\\d+)\\s*:\\s*(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "code": 5,
+                    "message": 6
+                }
+            },
+            "presentation": {
+                "clear": true
+            }
+        }
+    ]
+}

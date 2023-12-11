@@ -1,0 +1,95 @@
+#disable formatting with // clang-format off
+# enable formatting with // clang-format on
+
+Language : Cpp
+Standard : Cpp11
+
+#-- - Indentation
+
+# Number of columns used for tab stops
+TabWidth : 4
+# Allowance to use tabs
+UseTab : Never
+# Control indentation between switch and case statements
+IndentCaseLabels : false
+# Number of columns used for indentation
+IndentWidth : 4
+# Control indentation for too long function definitions or declarations
+IndentWrappedFunctionNames : true
+# Number of characters for indentation of constructor initializer list
+ConstructorInitializerIndentWidth : 4
+# Indent width for line continuations
+ContinuationIndentWidth : 4
+# Extra indent of access modifiers e.g. public
+AccessModifierOffset : -4
+# Indentation used for namespaces
+NamespaceIndentation : None
+
+#-- - Braces
+# Configure brace breaking style to use
+BreakBeforeBraces : Custom
+# Custom definition of brace breaking style
+BraceWrapping :
+    AfterClass : true
+    AfterControlStatement : Never
+    AfterEnum : true
+    AfterFunction : true
+    AfterNamespace : false
+    AfterStruct : false
+    AfterUnion : false
+    BeforeCatch : false
+    BeforeElse : false
+    IndentBraces : false
+# Controls if code is allowed to be written in a single line e.g. if (1) { return; }
+AllowShortBlocksOnASingleLine : Never
+# Controls if short case labels are allowed to be written into a single line e.g. case : break;
+AllowShortCaseLabelsOnASingleLine : false
+# Controls if short functions are allowed to be written into a single line
+AllowShortFunctionsOnASingleLine : Empty
+# Controls if short if statements are allowed to be written into a single line
+AllowShortIfStatementsOnASingleLine : Never
+# Control if short loops are allowed to be written into a single line e.g. while (true) continue;
+AllowShortLoopsOnASingleLine : false
+Cpp11BracedListStyle : true
+
+#-- - Whitespace
+SpaceBeforeAssignmentOperators : true
+SpaceBeforeParens : ControlStatements
+SpaceInEmptyParentheses : false
+SpacesBeforeTrailingComments : 1
+SpaceBeforeCpp11BracedList : true
+SpacesInAngles : false
+SpacesInCStyleCastParentheses : false
+SpacesInParentheses : false
+SpacesInSquareBrackets : false
+MaxEmptyLinesToKeep : 1
+
+#-- - Penalties, breaks, alignment & reflow
+PenaltyBreakBeforeFirstCallParameter : 200
+PenaltyBreakComment : 200
+PenaltyExcessCharacter : 5
+PenaltyReturnTypeOnItsOwnLine : 200
+AlignAfterOpenBracket : Align
+AlignConsecutiveAssignments : false
+AlignConsecutiveDeclarations : false
+AlignOperands : true
+AlignTrailingComments : true
+AllowAllParametersOfDeclarationOnNextLine : false
+#AlwaysBreakAfterReturnType : None
+#AlwaysBreakBeforeMultilineStrings : true
+AlwaysBreakTemplateDeclarations : true
+BinPackArguments : false
+BinPackParameters : false
+BreakBeforeBinaryOperators : NonAssignment
+BreakBeforeTernaryOperators : true
+BreakConstructorInitializers : BeforeComma
+ColumnLimit : 120
+ConstructorInitializerAllOnOneLineOrOnePerLine : false
+# Controls if pointers and references are aligned to the type or the value
+PointerAlignment : Right
+ReflowComments : false
+
+#-- - Other
+
+SortIncludes : true
+ForEachMacros : [foreach, Q_FOREACH, BOOST_FOREACH]
