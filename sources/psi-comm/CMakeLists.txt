@@ -29,8 +29,8 @@ set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${BUILD_OUT})
 set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${BUILD_OUT})
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BUILD_OUT})
 set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BUILD_OUT})
-# set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BUILD_OUT})
-# set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BUILD_OUT})
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_DEBUG ${BUILD_OUT})
+set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_RELEASE ${BUILD_OUT})
 
 # cleanups
 file(MAKE_DIRECTORY ${BUILD_OUT})
@@ -39,13 +39,16 @@ message("Build out: ${BUILD_OUT}")
 # 3rd parties
 set( 3rdPARTY_DIR "${PROJECT_SOURCE_DIR}/3rdparty")
 
+if (EXISTS ${3rdPARTY_DIR}/psi/logger)
+    add_definitions(PSI_LOGGER)
+endif()
+
 # functions
 function(psi_make_tests name src libs)
     if (WIN32)
         set (PLATFORM_LIBS "dbghelp.dll")
     endif()
 
-    add_compile_definitions(PSI_EXAMPLE)
     set( fileName PSI_TEST_${name})
     include_directories(
         ${3rdPARTY_DIR}/psi/include
@@ -66,7 +69,6 @@ function(psi_make_tests name src libs)
 endfunction()
 
 function(psi_make_examples name src)
-    add_compile_definitions(PSI_EXAMPLE)
     set( fileName PSI_EXAMPLE_${name})
     add_executable(${fileName} ${src})
 endfunction()

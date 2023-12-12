@@ -7,8 +7,18 @@
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 
+#ifdef PSI_LOGGER
+#include "psi/logger/Logger.h"
+#else
 #include <iostream>
-#define LOG_INFO_STATIC(x) std::cout << x << std::endl;
+#include <sstream>
+#define LOG_INFO_STATIC(x)                                                                                             \
+    do {                                                                                                               \
+        std::ostringstream os;                                                                                         \
+        os << x;                                                                                                       \
+        std::cout << os.str() << std::endl;                                                                            \
+    } while (0)
+#endif
 
 using namespace ::testing;
 

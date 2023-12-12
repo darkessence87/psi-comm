@@ -50,6 +50,14 @@ struct Client final {
             "TestRequest"));
     }
 
+    void goo(ClientCallback cb)
+    {
+        m_server.request(m_callerGuard.invoke([this, cb]() {
+            ++m_calledTimes;
+            cb();
+        }));
+    }
+
     static int fooCallbackCalled()
     {
         return m_calledTimes;
@@ -99,6 +107,7 @@ TEST(SafeCaller, TestRawPointer)
     Client *heapClient = new Client(s);
     heapClient->foo([]() {});
     heapClient->foo([]() {});
+    heapClient->goo([]() {});
     delete heapClient;
     heapClient = nullptr;
 
@@ -115,6 +124,7 @@ TEST(SafeCaller, TestSharedPointer)
         std::shared_ptr<Client> heapClient = std::make_shared<Client>(s);
         heapClient->foo([]() {});
         heapClient->foo([]() {});
+        heapClient->goo([]() {});
     }
 
     s.processRequests();
@@ -135,6 +145,7 @@ TEST(SafeCaller, TestSharedPointerArrays)
             heapClient->foo(std::bind(&ClientHolder::deleteClient, std::ref(clients), clientId1));
             heapClient->foo([]() {});
             heapClient->foo([]() {});
+            heapClient->goo([]() {});
         }
     }
 

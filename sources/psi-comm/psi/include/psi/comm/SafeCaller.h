@@ -5,6 +5,19 @@
 
 #include "psi/Tools.h"
 
+#ifdef PSI_LOGGER
+#include "psi/logger/Logger.h"
+#else
+#include <iostream>
+#include <sstream>
+#define LOG_ERROR_STATIC(x)                                                                                            \
+    do {                                                                                                               \
+        std::ostringstream os;                                                                                         \
+        os << x;                                                                                                       \
+        std::cout << os.str() << std::endl;                                                                            \
+    } while (0)
+#endif
+
 namespace psi::comm {
 
 /**
@@ -84,7 +97,7 @@ public:
                 if (fallback) {
                     fallback();
                 } else {
-                    std::cout << "caller: " << addr << " " << cbName << " expired";
+                    LOG_ERROR_STATIC("caller: " << addr << " " << cbName << " expired");
                 }
                 return;
             }
