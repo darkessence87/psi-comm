@@ -83,11 +83,6 @@ public:
         return subscribe(std::forward<EventFunc>(func));
     }
 
-    ///
-    /// Creates listener with default reaction on attribute's change.
-    /// Listener's reaction must be replaced later by client.
-    ///
-
     /**
      * @brief Creates listener with default reaction on attribute's change.
      * Listener's reaction must be replaced later by client.
