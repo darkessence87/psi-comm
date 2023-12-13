@@ -1,15 +1,25 @@
 cmake_minimum_required(VERSION 3.6)
 
+message(${CMAKE_CURRENT_SOURCE_DIR})
+get_filename_component(projectName ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+string(REPLACE " " "_" projectName ${projectName})
+message("Project: ${projectName}")
+
+if (NOT EXISTS ${CMAKE_BUILD_TYPE})
+    set (CMAKE_BUILD_TYPE Debug)
+endif()
+set (BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
+
 STRING(REGEX REPLACE "\\\\" "/" BUILD_DIR ${BUILD_DIR} )
 message("Build dir: ${BUILD_DIR}")
 
 # setup configuration parameters
 file(MAKE_DIRECTORY ${BUILD_DIR}/bin/)
 
-if (WIN32)
-    # setup project
-    project(psi-sm)
+# setup project
+project(${projectName})
 
+if (WIN32)
     set( SUB_DIR_LIBS ${CMAKE_BUILD_TYPE}/win64)
 
     set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std:c++20 -W4 /MP /O2")
