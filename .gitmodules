@@ -1,0 +1,3 @@
+[submodule "3rdparty/psi-tools"]
+	path = 3rdparty/psi-tools
+	url = https://github.com/darkessence87/psi-tools.git

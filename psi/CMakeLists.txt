@@ -1,5 +1,6 @@
 include_directories(
     ${3rdPARTY_DIR}/psi/include
+    ${3rdPARTY_DIR}/psi-tools/psi/include
     include
 )
 
