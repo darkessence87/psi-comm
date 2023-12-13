@@ -7,4 +7,6 @@ function (find_submodule name path)
     endif()
 endfunction()
 
-add_subdirectory(3rdparty/psi-tools)
+if (EXISTS 3rdparty/psi-tools)
+    add_subdirectory(3rdparty/psi-tools)
+endif()
