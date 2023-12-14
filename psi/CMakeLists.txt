@@ -10,12 +10,17 @@ include_directories(
     include
 )
 
+link_directories(
+    ${psi_logger_dir}/build/bin/${CMAKE_BUILD_TYPE}
+    ${psi_shared_dir}/build/bin/${CMAKE_BUILD_TYPE}
+)
+
 set(TEST_SRC
     tests/AttributeTests.cpp
     tests/SafeCallerTests.cpp
     tests/SynchedTests.cpp
 )
-psi_make_tests("Comm" "${TEST_SRC}" "")
+psi_make_tests("Comm" "${TEST_SRC}" "psi-logger;psi-shared")
 
 set(EXAMPLE_SRC
     examples/1_Simple_Attribute/EntryPoint.cpp
