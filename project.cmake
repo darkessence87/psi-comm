@@ -29,12 +29,19 @@ message ("Build out: ${BUILD_OUT}")
 # functions
 function(psi_make_tests name src libs)
     include_directories (${3rdPARTY_DIR}/tests/include)
-    link_directories (${3rdPARTY_DIR}/tests/lib/${SUB_DIR_LIBS})
-    
+    link_directories(
+        ${3rdPARTY_DIR}/tests/lib/${SUB_DIR_LIBS}
+        ${psi_logger_dir}/build/bin/${CMAKE_BUILD_TYPE}
+        ${psi_shared_dir}/build/bin/${CMAKE_BUILD_TYPE}
+        ${psi_tools_dir}/build/bin/${CMAKE_BUILD_TYPE}
+    )
+
     set (fileName PSI_TEST_${name})
     add_executable (${fileName} ${PROJECT_SOURCE_DIR}/tests/EntryPoint.cpp ${src})
     target_link_libraries (${fileName}
         ${libs}
+        psi-logger
+        psi-shared
         gmock
         gmock_main
         gtest
