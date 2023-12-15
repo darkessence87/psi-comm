@@ -1,0 +1,17 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>170</x><y>320</y><w>320</w><h>150</h></coordinates><panel_attributes>SafeCaller
+-
++ alias VoidFunc : std::function&lt;void()&gt;
+-
++ SafeCaller ( size_t ) : ctor
++ SafeCaller&lt;T&gt; ( const T *const ) : ctor
++ release ( )
++ invoke&lt;Func&gt; ( Func &amp;&amp;, VoidFunc &amp;&amp;, String ) : auto
++ address ( ) : String
+-
+- m_caller : std::shared_ptr&lt;Guard&gt;</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>640</x><y>320</y><w>170</w><h>70</h></coordinates><panel_attributes>Guard
+-
++ m_callerAddress : String
+-
++ Guard ( size_t ) : ctor
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>320</y><w>180</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1..1</panel_attributes><additional_attributes>10;20;160;20</additional_attributes></element></diagram>

@@ -8,15 +8,15 @@ namespace psi::comm {
 /**
  * @brief Synched class is used for thread-safe access to wrapped object.
  * 
- * @tparam T type of object
- * @tparam M type of mutex
+ * @tparam ObjectType type of object
+ * @tparam MutexType type of mutex
  */
-template <typename T, typename M = std::recursive_mutex>
+template <typename ObjectType, typename MutexType = std::recursive_mutex>
 class Synched
 {
 public:
     struct Locker {
-        Locker(T *const obj, M &mtx)
+        Locker(ObjectType *const obj, MutexType &mtx)
             : m_obj(obj)
             , m_lock(mtx)
         {
@@ -36,26 +36,24 @@ public:
             return std::move(locker);
         }
 
-        ~Locker() {}
-
-        T *operator->()
+        ObjectType *operator->()
         {
             return m_obj;
         }
 
-        const T *operator->() const
+        const ObjectType *operator->() const
         {
             return m_obj;
         }
 
     private:
-        T *const m_obj;
-        std::unique_lock<M> m_lock;
+        ObjectType *const m_obj;
+        std::unique_lock<MutexType> m_lock;
     };
 
-    Synched(std::shared_ptr<T> obj)
+    Synched(std::shared_ptr<ObjectType> obj)
         : m_object(obj)
-        , m_mutex(std::make_shared<M>())
+        , m_mutex(std::make_shared<MutexType>())
     {
     }
 
@@ -70,8 +68,8 @@ public:
     }
 
 private:
-    std::shared_ptr<T> m_object;
-    std::shared_ptr<M> m_mutex;
+    std::shared_ptr<ObjectType> m_object;
+    std::shared_ptr<MutexType> m_mutex;
 };
 
 } // namespace psi::comm

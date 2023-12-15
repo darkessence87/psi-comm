@@ -1,0 +1,24 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>250</x><y>210</y><w>320</w><h>120</h></coordinates><panel_attributes>template=1: T
+/IAttribute/
+-
++ alias EventFunc : std::function&lt;void(T, T)&gt;
+-
+/+ value ( ) : const T &amp;/
+/+ subscribe ( Func &amp;&amp; ) : Subscription/
+/+ subscribeAndGet ( EventFunc &amp;&amp; ) : Subscription/
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>380</y><w>320</w><h>180</h></coordinates><panel_attributes>template=1: T
+Attribute
+-
++ alias Interface : IAttribute&lt;T&gt;
++ alias Listener : typename Event&lt;T, T&gt;::Listener
++ alias EventFunc : typename Interface::EventFunc
+-
+- m_value : T
+- m_event : Event&lt;T, T&gt;
+-
++ Attribute ( T &amp;&amp; = T() ) : ctor
++ setValue ( T &amp;&amp; )
++ createListener ( ) : std::shared_ptr&lt;Listener&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>320</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>250</x><y>610</y><w>330</w><h>50</h></coordinates><panel_attributes>template=1: T, 2: T
+Event</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>390</x><y>550</y><w>50</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1..1</panel_attributes><additional_attributes>10;10;10;70</additional_attributes></element></diagram>

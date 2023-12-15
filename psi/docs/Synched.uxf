@@ -1,0 +1,14 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>130</x><y>330</y><w>450</w><h>80</h></coordinates><panel_attributes>template=1: ObjectType 2: MutexType = std::recursive_mutex
+Synched
+-
++ Synched ( std::shared_ptr&lt;ObjectType&gt; ) : ctor
++ operator-&gt;() : Locker
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>630</x><y>360</y><w>230</w><h>110</h></coordinates><panel_attributes>Locker
+-
+- m_obj : ObjectType *
+- m_lock : std::unique_lock&lt;MutexType&gt;
+-
++ Locker ( ObjectType * ) : ctor
++ Locker ( Locker &amp;&amp; ) : ctor
++ operator-&gt;() : ObjectType *</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>420</x><y>360</y><w>230</w><h>40</h></coordinates><panel_attributes>lt=&lt;&lt;&lt;&lt;&lt;-
+1..1</panel_attributes><additional_attributes>10;20;210;20</additional_attributes></element></diagram>

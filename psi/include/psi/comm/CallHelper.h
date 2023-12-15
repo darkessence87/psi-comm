@@ -10,22 +10,22 @@ namespace psi::comm::call_helper {
 
 using RequestId = uint64_t;
 
-template <typename T>
-using FinishCb = std::function<void(std::vector<T>)>;
+template <typename ResponseType>
+using FinishCb = std::function<void(std::vector<ResponseType>)>;
 
-template <typename T>
-using ResponseCb = std::function<void(const T &)>;
+template <typename ResponseType>
+using ResponseCb = std::function<void(const ResponseType &)>;
 
-template <typename T>
-using RequestFn = std::function<void(ResponseCb<T>)>;
+template <typename ResponseType>
+using RequestFn = std::function<void(ResponseCb<ResponseType>)>;
 
-template <typename Response>
+template <typename ResponseType>
 struct Request final {
-    Request(RequestFn<Response> f)
+    Request(RequestFn<ResponseType> f)
         : fn(f)
     {
     }
-    RequestFn<Response> fn;
+    RequestFn<ResponseType> fn;
 };
 
 template <typename T>
@@ -39,24 +39,24 @@ using Requests = std::vector<RequestPtr<T>>;
  * Requests are functions with own callback.
  * Final callback will be called only after callbacks for all requestes are called.
  * 
- * @tparam Response type of response. In fact, type of value sent in callbacks
+ * @tparam ResponseType type of response. In fact, type of value sent in callbacks
  * @param requests list of requests
  * @param finishCb final callback to be called after all requests' callbacks are called
  */
-template <typename Response>
-void runAll(const Requests<Response> &requests, FinishCb<Response> finishCb)
+template <typename ResponseType>
+void runAll(const Requests<ResponseType> &requests, FinishCb<ResponseType> finishCb)
 {
     if (requests.empty()) {
-        finishCb(std::vector<Response>());
+        finishCb(std::vector<ResponseType>());
         return;
     }
 
-    using ResponsesMap = std::map<RequestId, Response>;
+    using ResponsesMap = std::map<RequestId, ResponseType>;
 
     auto requestsN = std::make_shared<uint64_t>(requests.size());
     auto responses = std::make_shared<ResponsesMap>();
 
-    auto onResult = [requestsN, responses, finishCb](RequestId requestId, const Response &response) {
+    auto onResult = [requestsN, responses, finishCb](RequestId requestId, const ResponseType &response) {
         auto itr = responses->find(requestId);
         if (itr != responses->end()) {
             itr->second = response;
@@ -64,7 +64,7 @@ void runAll(const Requests<Response> &requests, FinishCb<Response> finishCb)
 
         --*requestsN;
         if (*requestsN == 0) {
-            std::vector<Response> result;
+            std::vector<ResponseType> result;
             for (const auto &res : *responses.get()) {
                 result.emplace_back(res.second);
             }
@@ -77,7 +77,7 @@ void runAll(const Requests<Response> &requests, FinishCb<Response> finishCb)
     for (const auto &req : requests) {
         ++requestId;
         (*responses)[requestId];
-        req->fn([requestId, onResult](const Response &response) { onResult(requestId, response); });
+        req->fn([requestId, onResult](const ResponseType &response) { onResult(requestId, response); });
     }
 }
 
@@ -92,21 +92,21 @@ void runAll(const Requests<Response> &requests, FinishCb<Response> finishCb)
  * @param requests list of requests
  * @param finishCb final callback to be called after all requests' callbacks are called
  */
-template <typename Strategy, typename Response>
-void runAllAsync(Strategy &strat, const Requests<Response> &requests, FinishCb<Response> finishCb)
+template <typename Strategy, typename ResponseType>
+void runAllAsync(Strategy &strat, const Requests<ResponseType> &requests, FinishCb<ResponseType> finishCb)
 {
     if (requests.empty()) {
-        finishCb(std::vector<Response>());
+        finishCb(std::vector<ResponseType>());
         return;
     }
 
-    using ResponsesMap = std::map<RequestId, Response>;
+    using ResponsesMap = std::map<RequestId, ResponseType>;
 
     auto requestsN = std::make_shared<uint64_t>(requests.size());
     auto responses = std::make_shared<ResponsesMap>();
     auto mtx = std::make_shared<std::recursive_mutex>();
 
-    auto onResult = [requestsN, responses, finishCb, mtx](RequestId requestId, const Response &response) {
+    auto onResult = [requestsN, responses, finishCb, mtx](RequestId requestId, const ResponseType &response) {
         auto itr = responses->find(requestId);
         if (itr != responses->end()) {
             itr->second = response;
@@ -115,7 +115,7 @@ void runAllAsync(Strategy &strat, const Requests<Response> &requests, FinishCb<R
         std::lock_guard<std::recursive_mutex> lock(*mtx);
         --*requestsN;
         if (*requestsN == 0) {
-            std::vector<Response> result;
+            std::vector<ResponseType> result;
             for (const auto &res : *responses.get()) {
                 result.emplace_back(res.second);
             }
@@ -129,7 +129,7 @@ void runAllAsync(Strategy &strat, const Requests<Response> &requests, FinishCb<R
         ++requestId;
         (*responses)[requestId];
         strat.asyncCall(
-            [=]() { req->fn([requestId, onResult](const Response &response) { onResult(requestId, response); }); });
+            [=]() { req->fn([requestId, onResult](const ResponseType &response) { onResult(requestId, response); }); });
     }
 }
 
