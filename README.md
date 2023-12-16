@@ -1,9 +1,9 @@
 # Description
-- *Attribute*
-- *Event*
-- *CallHelper*
-- *SafeCaller*
-- *Synched*
+- *Attribute*. Is used for notification listeners on its value changed. If you make local variable as attribute other classes may subscribe to its changes.
+- *Event*. Is used for notification listeners. If you make local variable as event other classes may subscribe to your notifications.
+- *CallHelper*. Contains helpers for ordered processing functions with callbacks.
+- *SafeCaller*. Is used for prevent crashes on calling object's functions after the object have been destroyed.
+- *Synched*. Is used for thread-safe access to wrapped object.
 
 # Usage examples
 * [1_Simple_Attribute](https://github.com/darkessence87/psi-comm/blob/master/psi/examples/1_Simple_Attribute/EntryPoint.cpp)
