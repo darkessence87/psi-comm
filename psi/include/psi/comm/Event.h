@@ -29,7 +29,7 @@ public:
      */
     struct Listener final : std::enable_shared_from_this<Listener>, Subscribable {
         /// @brief Unique id of listener, in fact it is iterator of holder's list
-        using Identifier = typename std::list<WeakSubscription>::iterator;
+        using Identifier = typename std::list<WeakSubscription>::reverse_iterator;
 
         /// @brief Constructs listener object
         /// @param holder reference to holder of all listeners
@@ -43,7 +43,7 @@ public:
         /// @brief Destroys the listener and removes it from holder's list
         ~Listener()
         {
-            m_holder.erase(m_identifier);
+            m_holder.erase(std::next(m_identifier).base());
         }
 
         /// @brief Reaction may be changed any time between event's notifications
@@ -62,13 +62,18 @@ public:
     };
 
 public:
+    ~Event()
+    {
+        m_listeners.clear();
+    }
+
     /**
      * @brief Notifies all listeners.
      * It is safe to remove listener in a reaction.
      * 
      * @param args 
      */
-    virtual void notify(Args... args)
+    virtual void notify(Args... args) const
     {
         auto copy = m_listeners;
         for (auto itr = copy.begin(); itr != copy.end(); ++itr) {
@@ -103,8 +108,8 @@ public:
     {
         auto listener =
             std::make_shared<Listener>(m_listeners, [this](Args &&...) { std::cerr << "Not implemented!" << std::endl; });
-        m_listeners.emplace_front(listener);
-        listener->m_identifier = m_listeners.begin();
+        m_listeners.emplace_back(listener);
+        listener->m_identifier = m_listeners.rbegin();
         return listener;
     }
 

@@ -1,74 +1,13 @@
 #include "psi/comm/CallHelper.h"
 
-#include <condition_variable>
 #include <iostream>
-#include <mutex>
-#include <queue>
 #include <set>
-#include <thread>
-#include <vector>
 
-class AsyncStrategy
-{
-public:
-    AsyncStrategy()
-    {
-        m_threads.emplace_back(std::thread(std::bind(&AsyncStrategy::onThreadStart, this)));
-        m_threads.emplace_back(std::thread(std::bind(&AsyncStrategy::onThreadStart, this)));
-        m_threads.emplace_back(std::thread(std::bind(&AsyncStrategy::onThreadStart, this)));
-        m_threads.emplace_back(std::thread(std::bind(&AsyncStrategy::onThreadStart, this)));
-    }
-
-    ~AsyncStrategy()
-    {
-        m_isActive = false;
-        m_condition.notify_all();
-
-        for (auto &t : m_threads) {
-            if (t.joinable()) {
-                t.join();
-            }
-        }
-    }
-
-    using Func = std::function<void()>;
-    void asyncCall(Func &&fn)
-    {
-        std::unique_lock<std::mutex> lock(m_mutex);
-        m_queue.emplace(std::forward<Func>(fn));
-        m_condition.notify_one();
-    }
-
-private:
-    void onThreadStart()
-    {
-        while (m_isActive) {
-            std::unique_lock<std::mutex> lock(m_mutex);
-            m_condition.wait(lock, [this]() { return !m_isActive || m_queue.size(); });
-
-            if (m_queue.empty()) {
-                continue;
-            }
-
-            auto fn = m_queue.front();
-            m_queue.pop();
-
-            lock.unlock();
-
-            fn();
-        }
-    }
-
-private:
-    std::mutex m_mutex;
-    std::condition_variable m_condition;
-    std::queue<Func> m_queue;
-    std::atomic<bool> m_isActive = true;
-    std::vector<std::thread> m_threads;
-};
+#include "AsyncStrategy.h"
 
 int main()
 {
+    using namespace psi::examples;
     using namespace psi::comm::call_helper;
 
     // strategy class for processing async calls

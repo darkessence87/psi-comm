@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "psi/comm/Event.h"
 #include "psi/comm/IAttribute.h"
 
@@ -27,6 +29,18 @@ public:
      */
     Attribute(T &&defaultValue = T())
         : m_value(std::forward<T>(defaultValue))
+        , m_event(std::make_unique<Event<T, T>>())
+    {
+    }
+
+    /**
+     * @brief Construct a new Attribute object
+     * 
+     * @param event event to be used for notifications
+     */
+    Attribute(std::unique_ptr<Event<T, T>> event)
+        : m_value(T())
+        , m_event(std::move(event))
     {
     }
 
@@ -55,7 +69,7 @@ public:
         m_value = std::forward<T>(value);
 
         if (needNotification) {
-            m_event.notify(oldValue, m_value);
+            m_event->notify(oldValue, m_value);
         }
     }
 
@@ -67,7 +81,7 @@ public:
      */
     Subscription subscribe(EventFunc &&func) override
     {
-        return m_event.subscribe(std::forward<EventFunc>(func));
+        return m_event->subscribe(std::forward<EventFunc>(func));
     }
 
     /**
@@ -91,12 +105,12 @@ public:
      */
     std::shared_ptr<Listener> createListener()
     {
-        return m_event.createListener();
+        return m_event->createListener();
     }
 
 private:
     T m_value;
-    Event<T /*old value*/, T /*new value*/> m_event;
+    std::unique_ptr<Event<T /*old value*/, T /*new value*/>> m_event;
 };
 
 } // namespace psi::comm

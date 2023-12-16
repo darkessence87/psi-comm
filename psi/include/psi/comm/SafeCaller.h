@@ -85,7 +85,7 @@ public:
      * @return auto wrapped function
      */
     template <typename Func>
-    auto invoke(Func &&fn, VoidFunc &&fallback = nullptr, const std::string &cbName = "[Unspecified]")
+    auto invoke(Func &&fn, VoidFunc &&fallback = nullptr, const std::string &cbName = "[Unspecified]") const
     {
         std::weak_ptr<Guard> weakPtr = m_caller;
         return [weakPtr,

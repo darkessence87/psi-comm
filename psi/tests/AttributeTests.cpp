@@ -42,7 +42,7 @@ TEST(AttributeTests, setValue)
     Attribute<int> a(15);
 
     MockedFn<std::function<void(int, int)>> onEventFn;
-    auto sub = a.m_event.subscribe(onEventFn.fn());
+    auto sub = a.m_event->subscribe(onEventFn.fn());
 
     {
         SCOPED_TRACE("// case 1. data is changed");

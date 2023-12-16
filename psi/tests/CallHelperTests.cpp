@@ -11,7 +11,6 @@
 #include <queue>
 #include <thread>
 
-
 using namespace ::testing;
 using namespace psi::comm::call_helper;
 using namespace psi::test;

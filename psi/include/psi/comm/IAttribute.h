@@ -17,6 +17,8 @@ class IAttribute
 public:
     using EventFunc = std::function<void(T, T)>;
 
+    virtual ~IAttribute() = default;
+
     /**
      * @brief Returns current value of attribute
      * 
