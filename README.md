@@ -1,4 +1,5 @@
 # Description
+This library contains classes for making communication in decoupled architecture.
 - *Attribute*. Is used for notification listeners on its value changed. If you make local variable as attribute other classes may subscribe to its changes.
 - *Event*. Is used for notification listeners. If you make local variable as event other classes may subscribe to your notifications.
 - *CallHelper*. Contains helpers for ordered processing functions with callbacks.
