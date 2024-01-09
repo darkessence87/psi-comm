@@ -1,0 +1,220 @@
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><element><id>UMLClass</id><coordinates><x>63</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>271</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>95</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>95</x><y>216</y><w>16</w><h>160</h></coordinates><panel_attributes>bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>39</x><y>120</y><w>336</w><h>312</h></coordinates><panel_attributes>/AsyncCbStrategy sequence/
+-
+layer=-1
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>208</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>167</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>232</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>256</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>199</x><y>216</y><w>16</w><h>72</h></coordinates><panel_attributes>bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>207</x><y>216</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>303</x><y>224</y><w>16</w><h>152</h></coordinates><panel_attributes>bg=gray
+group=group-11</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>207</x><y>240</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>207</x><y>264</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-11</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>304</y><w>216</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-11</panel_attributes><additional_attributes>10;20;250;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>328</y><w>216</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-11</panel_attributes><additional_attributes>10;20;250;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>352</y><w>216</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-11</panel_attributes><additional_attributes>10;20;250;20</additional_attributes></element><element><id>Relation</id><coordinates><x>95</x><y>368</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>199</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>199</x><y>280</y><w>24</w><h>144</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;160;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>303</x><y>368</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>303</x><y>176</y><w>24</w><h>64</h></coordinates><panel_attributes>lt=.
+group=group-11</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>407</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>615</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>439</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>439</x><y>216</y><w>16</w><h>168</h></coordinates><panel_attributes>bg=gray
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>208</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>511</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>232</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>256</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>543</x><y>216</y><w>16</w><h>168</h></coordinates><panel_attributes>bg=gray
+layer=1
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>216</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>647</x><y>216</y><w>16</w><h>160</h></coordinates><panel_attributes>bg=gray
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>288</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>328</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>272</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>312</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>352</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>439</x><y>376</y><w>24</w><h>48</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>543</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>543</x><y>376</y><w>24</w><h>48</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>647</x><y>368</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>647</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-13</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLNote</id><coordinates><x>383</x><y>120</y><w>336</w><h>312</h></coordinates><panel_attributes>/FullySyncCbStrategy sequence/
+-
+layer=-1
+group=group-13</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>280</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>320</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>360</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-13</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>63</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>271</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>95</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>95</x><y>536</y><w>16</w><h>136</h></coordinates><panel_attributes>bg=gray
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>528</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>167</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>552</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>576</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>199</x><y>536</y><w>16</w><h>136</h></coordinates><panel_attributes>bg=gray
+layer=1
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>207</x><y>536</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>303</x><y>544</y><w>16</w><h>88</h></coordinates><panel_attributes>bg=gray
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>207</x><y>608</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>95</x><y>664</y><w>24</w><h>80</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>199</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>199</x><y>664</y><w>24</w><h>80</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>303</x><y>624</y><w>24</w><h>120</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;130;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>303</x><y>496</y><w>24</w><h>64</h></coordinates><panel_attributes>lt=.
+group=group-12</panel_attributes><additional_attributes>10;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>616</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>632</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>103</x><y>648</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-12</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>39</x><y>440</y><w>336</w><h>312</h></coordinates><panel_attributes>/SupressedCbStrategy sequence/
+-
+layer=-1
+group=group-12</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>407</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>615</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>439</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>439</x><y>536</y><w>16</w><h>168</h></coordinates><panel_attributes>bg=gray
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>528</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>511</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>552</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>576</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>543</x><y>536</y><w>16</w><h>168</h></coordinates><panel_attributes>bg=gray
+layer=1
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>536</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>647</x><y>536</y><w>16</w><h>160</h></coordinates><panel_attributes>bg=gray
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>648</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>592</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>551</x><y>672</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>439</x><y>696</y><w>24</w><h>48</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>543</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>543</x><y>696</y><w>24</w><h>48</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>647</x><y>688</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>647</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-15</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>600</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>616</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>447</x><y>680</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-15</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>383</x><y>440</y><w>336</w><h>312</h></coordinates><panel_attributes>/PartlySupressedCbStrategy sequence/
+-
+layer=-1
+group=group-15</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>751</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>959</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>783</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>783</x><y>216</y><w>16</w><h>176</h></coordinates><panel_attributes>bg=gray
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>208</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>855</x><y>160</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>224</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>280</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>887</x><y>216</y><w>16</w><h>176</h></coordinates><panel_attributes>bg=gray
+layer=1
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>216</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>991</x><y>216</y><w>16</w><h>168</h></coordinates><panel_attributes>bg=gray
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>240</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>783</x><y>384</y><w>24</w><h>40</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>887</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>887</x><y>384</y><w>24</w><h>40</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;30;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>991</x><y>376</y><w>24</w><h>48</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;40;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>991</x><y>176</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.
+group=group-17</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>248</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>264</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>296</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>727</x><y>120</y><w>336</w><h>312</h></coordinates><panel_attributes>/CachedCbStrategy sequence/
+*All requests are equal by send parameters*
+-
+layer=-1
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>320</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+reset
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>336</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 4
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>368</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 4
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>735</x><y>320</y><w>320</w><h>80</h></coordinates><panel_attributes>optional
+group=group-17</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>344</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 4
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>360</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 4
+group=group-17</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>751</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Client
+bg=gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>959</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>Server
+bg=gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>783</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>783</x><y>536</y><w>16</w><h>136</h></coordinates><panel_attributes>bg=gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>528</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLClass</id><coordinates><x>855</x><y>480</y><w>80</w><h>24</h></coordinates><panel_attributes>CallStrategy
+bg=gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>544</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>616</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>887</x><y>536</y><w>16</w><h>136</h></coordinates><panel_attributes>bg=gray
+layer=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>536</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 1</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>991</x><y>536</y><w>16</w><h>128</h></coordinates><panel_attributes>bg=gray</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>568</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>783</x><y>664</y><w>24</w><h>80</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>887</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>887</x><y>664</y><w>24</w><h>80</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>991</x><y>656</y><w>24</w><h>88</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;90;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>991</x><y>496</y><w>24</w><h>56</h></coordinates><panel_attributes>lt=.</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>576</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 2</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>600</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>791</x><y>648</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>UMLNote</id><coordinates><x>727</x><y>440</y><w>336</w><h>312</h></coordinates><panel_attributes>/CachedCbStrategy sequence/
+*All requests are different by send parameters*
+-
+layer=-1</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>624</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 3</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>552</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=-&gt;
+request 2</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>640</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 3</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element><element><id>Relation</id><coordinates><x>895</x><y>592</y><w>112</w><h>32</h></coordinates><panel_attributes>lt=&lt;..
+response 1</panel_attributes><additional_attributes>10;20;120;20</additional_attributes></element></diagram>

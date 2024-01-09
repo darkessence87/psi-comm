@@ -64,9 +64,9 @@ struct MockedFn<std::function<R(A1, A2)>> : TestFn<std::function<R(A1, A2)>> {
     MOCK_METHOD(R, f, (A1, A2), (const, override));
 };
 
-// template <typename R, typename... Args>
-// struct MockedFn<std::function<R(Args...)>> : TestFn<std::function<R(Args...)>> {
-//     MOCK_METHOD(R, f, (Args...), (const, override));
-// };
+template <typename R, typename A1, typename A2, typename A3>
+struct MockedFn<std::function<R(A1, A2, A3)>> : TestFn<std::function<R(A1, A2, A3)>> {
+    MOCK_METHOD(R, f, (A1, A2, A3), (const, override));
+};
 
-} // namespace psi
+} // namespace psi::test

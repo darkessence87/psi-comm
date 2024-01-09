@@ -18,6 +18,7 @@ link_directories(
 set(TEST_SRC
     tests/AttributeTests.cpp
     tests/CallHelperTests.cpp
+    tests/CallStrategyTests.cpp
     tests/EventTests.cpp
     tests/SafeCallerTests.cpp
     tests/SynchedTests.cpp
@@ -41,3 +42,6 @@ psi_make_examples("3_CallHelper" "${EXAMPLE_SRC}" "psi-logger")
 
 set(EXAMPLE_SRC examples/4_SafeCaller/EntryPoint.cpp)
 psi_make_examples("4_SafeCaller" "${EXAMPLE_SRC}" "psi-logger;psi-shared")
+
+set(EXAMPLE_SRC examples/5_CallStrategy/EntryPoint.cpp)
+psi_make_examples("5_CallStrategy" "${EXAMPLE_SRC}" "psi-logger;psi-shared")
