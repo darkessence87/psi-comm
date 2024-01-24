@@ -472,3 +472,51 @@ TEST(CallStrategyTests, SuppressedEvStrategy)
         }
     }
 }
+
+TEST(CallStrategyTests, interrupt)
+{
+    using Response = std::function<void()>;
+    using Request = std::function<void(int, Response)>;
+    const uint8_t N = 5;
+
+    FullySyncCbStrategy<> st;
+
+    StrictMock<MockedFn<Request>> req[N];
+    StrictMock<MockedFn<Response>> res[N];
+
+    ::InSequence dummy;
+
+    for (uint8_t i = 0; i < N; ++i) {
+        if (i == 0) {
+            EXPECT_CALL(req[i], f(i + 1, _));
+        }
+        st.processRequest([rq = req[i].fn(), i](auto resp) { rq(i + 1, resp); }, res[i].fn());
+    }
+
+    for (uint8_t i = 0; i < N; ++i) {
+        EXPECT_CALL(res[i], f());
+    }
+    st.interrupt();
+}
+
+TEST(CallStrategyTests, interruptImmediately)
+{
+    using Response = std::function<void()>;
+    using Request = std::function<void(int, Response)>;
+    const uint8_t N = 5;
+
+    FullySyncCbStrategy<> st;
+
+    StrictMock<MockedFn<Request>> req[N];
+    StrictMock<MockedFn<Response>> res[N];
+
+    ::InSequence dummy;
+
+    for (uint8_t i = 0; i < N; ++i) {
+        if (i == 0) {
+            EXPECT_CALL(req[i], f(i + 1, _));
+        }
+        st.processRequest([rq = req[i].fn(), i](auto resp) { rq(i + 1, resp); }, res[i].fn());
+    }
+    st.interruptImmediately();
+}

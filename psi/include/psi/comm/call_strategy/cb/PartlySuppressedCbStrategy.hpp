@@ -15,7 +15,7 @@ PartlySuppressedCbStrategy<CbArgs...>::CbStrategy(const std::string &logPrefix)
 template <typename... CbArgs>
 PartlySuppressedCbStrategy<CbArgs...>::~CbStrategy()
 {
-    interrupt();
+    interruptImmediately();
 
     logInfo("CbStrategy deleted");
 }
@@ -25,7 +25,7 @@ void PartlySuppressedCbStrategy<CbArgs...>::interrupt()
 {
     m_isClosing = true;
 
-    while (!m_queue.empty()) {
+    while (!m_interruptImmediately && !m_queue.empty()) {
         m_mutex.lock();
         auto response = m_queue.front().second;
         m_queue.pop();
@@ -35,6 +35,13 @@ void PartlySuppressedCbStrategy<CbArgs...>::interrupt()
         std::tuple<CbArgs...> values;
         VariadicCaller<CbArgs...>::invoke(response, values);
     }
+}
+
+template <typename... CbArgs>
+void PartlySuppressedCbStrategy<CbArgs...>::interruptImmediately()
+{
+    m_interruptImmediately = true;
+    interrupt();
 }
 
 template <typename... CbArgs>

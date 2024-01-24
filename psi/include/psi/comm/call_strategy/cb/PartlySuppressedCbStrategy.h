@@ -20,6 +20,7 @@ public:
     virtual ~CbStrategy();
 
     void interrupt();
+    void interruptImmediately();
     void processRequest(RequestFunc &&request, ResponseFunc &&response);
 
 private:
@@ -28,6 +29,7 @@ private:
 private:
     std::queue<QueuedRequest> m_queue;
     std::atomic<bool> m_isClosing = false;
+    std::atomic<bool> m_interruptImmediately = false;
 };
 
 template <typename... CbArgs>

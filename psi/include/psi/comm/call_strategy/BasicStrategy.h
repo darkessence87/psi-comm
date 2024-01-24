@@ -43,7 +43,7 @@ protected:
 protected:
     const std::string m_strategyName;
     const std::string m_logPrefix;
-    std::mutex m_mutex;
+    std::recursive_mutex m_mutex;
 
 private:
     BasicStrategy(BasicStrategy &) = delete;
