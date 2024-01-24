@@ -35,6 +35,4 @@ function (add_psi_dependency name)
     endif()
 endfunction()
 
-add_psi_dependency(logger)
-add_psi_dependency(shared)
 add_psi_dependency(tools)
