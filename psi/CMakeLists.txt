@@ -1,10 +1,6 @@
 
 include_directories(
-    ${psi_tools_dir}/psi/include
     include
-)
-
-link_directories(
 )
 
 set(TEST_SRC
