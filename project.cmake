@@ -63,6 +63,19 @@ if(NOT COMMAND find_submodule)
     endfunction()
 endif()
 
+if(NOT COMMAND include_psi_dependency)
+    function(include_psi_dependency name)
+        find_submodule(psi-${name} dep_path is_dependent)
+        message("[${projectName}] psi_${name}_dir: ${dep_path}, is_dependent: ${is_dependent}")
+
+        if(NOT EXISTS ${dep_path})
+            return()
+        endif()
+
+        include_directories(${dep_path}/psi/include)
+    endfunction()
+endif()
+
 if(NOT COMMAND add_psi_dependency)
     function(add_psi_dependency name)
         find_submodule(psi-${name} dep_path is_dependent)
