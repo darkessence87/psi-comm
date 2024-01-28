@@ -5,21 +5,35 @@ string(REPLACE " " "_" projectName ${projectName})
 message("Project: ${projectName}")
 
 # default build type
-if(NOT EXISTS ${CMAKE_BUILD_TYPE})
+if(NOT DEFINED ${CMAKE_BUILD_TYPE})
     set(CMAKE_BUILD_TYPE Debug)
 endif()
 
 # create build folder
-if(NOT EXISTS ${BUILD_DIR})
+if(NOT DEFINED ${BUILD_DIR})
     set(BUILD_DIR ${CMAKE_CURRENT_SOURCE_DIR}/build)
     STRING(REGEX REPLACE "\\\\" "/" BUILD_DIR ${BUILD_DIR})
     file(MAKE_DIRECTORY ${BUILD_DIR}/bin/)
 endif()
 
-message("Build dir: ${BUILD_DIR}")
+message("[${projectName}] Build dir: ${BUILD_DIR}")
+
+# tests
+if(NOT DEFINED PSI_BUILD_TESTS)
+    set(PSI_BUILD_TESTS true)
+endif()
+
+message("[${projectName}] PSI_BUILD_TESTS: ${PSI_BUILD_TESTS}")
+
+# examples
+if(NOT DEFINED PSI_BUILD_EXAMPLES)
+    set(PSI_BUILD_EXAMPLES true)
+endif()
+
+message("[${projectName}] PSI_BUILD_EXAMPLES: ${PSI_BUILD_EXAMPLES}")
 
 # create output folder
-if(NOT EXISTS ${BUILD_OUT})
+if(NOT DEFINED ${BUILD_OUT})
     set(BUILD_OUT ${BUILD_DIR}/bin/${CMAKE_BUILD_TYPE})
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${BUILD_OUT})
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${BUILD_OUT})
@@ -30,10 +44,10 @@ if(NOT EXISTS ${BUILD_OUT})
     file(MAKE_DIRECTORY ${BUILD_OUT})
 endif()
 
-message("Build out: ${BUILD_OUT}")
+message("[${projectName}] Build out: ${BUILD_OUT}")
 
 # functions
-if(NOT EXISTS find_submodule)
+if(NOT DEFINED find_submodule)
     function(find_submodule name path isDependent)
         get_filename_component(submodules_base_dir ${CMAKE_CURRENT_LIST_DIR} DIRECTORY BASE_DIR)
 
@@ -49,10 +63,10 @@ if(NOT EXISTS find_submodule)
     endfunction()
 endif()
 
-if(NOT EXISTS add_psi_dependency)
+if(NOT DEFINED add_psi_dependency)
     function(add_psi_dependency name)
         find_submodule(psi-${name} dep_path is_dependent)
-        message("psi_${name}_dir: ${dep_path}, is_dependent: ${is_dependent}")
+        message("[${projectName}] psi_${name}_dir: ${dep_path}, is_dependent: ${is_dependent}")
 
         if(NOT EXISTS ${dep_path})
             return()
@@ -69,21 +83,25 @@ if(NOT EXISTS add_psi_dependency)
             set(PSI_DEP_LIBS "${PSI_DEP_LIBS};psi-${name}" PARENT_SCOPE)
         else()
             if(${is_dependent} STREQUAL "yes")
-                set(PSI_BUILD_TESTS false CACHE INTERNAL false)
-                set(PSI_BUILD_EXAMPLES false CACHE INTERNAL false)
-                message("configuring submodule [psi-${name}]... ${dep_path}")
+                set(PSI_BUILD_TESTS false)
+                set(PSI_BUILD_EXAMPLES false)
+
+                message("[${projectName}] configuring submodule [psi-${name}]... ${dep_path}")
                 add_subdirectory(${dep_path})
+                set(PSI_DEP_LIBS "${PSI_DEP_LIBS};psi-${name}" PARENT_SCOPE)
+            else()
+                message(SEND_ERROR "[${projectName}] Please build project: ${dep_path}")
             endif()
         endif()
 
         if(${name} STREQUAL "logger")
-            message("found psi-logger")
+            message("[${projectName}] found psi-logger")
             add_compile_definitions(PSI_LOGGER)
         endif()
     endfunction()
 endif()
 
-if(NOT EXISTS psi_make_tests)
+if(NOT DEFINED psi_make_tests)
     function(psi_make_tests name src libs)
         if(NOT ${PSI_BUILD_TESTS})
             return()
@@ -99,7 +117,7 @@ if(NOT EXISTS psi_make_tests)
     endfunction()
 endif()
 
-if(NOT EXISTS psi_make_examples)
+if(NOT DEFINED psi_make_examples)
     function(psi_make_examples name src libs)
         if(NOT ${PSI_BUILD_EXAMPLES})
             return()
