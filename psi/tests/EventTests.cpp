@@ -33,6 +33,32 @@ TEST(EventTests, notify)
     }
 }
 
+TEST(EventTests, event_outlives_subscription)
+{
+    Event<int> a;
+
+    MockedFn<std::function<void(int)>> onEventFn;
+    auto sub = a.subscribe(onEventFn.fn());
+    EXPECT_NE(sub, nullptr);
+
+    sub.reset();
+
+    EXPECT_CALL(onEventFn, f(_)).Times(0);
+    a.notify(20);
+}
+
+TEST(EventTests, subscription_outlives_event)
+{
+    auto a = std::make_shared<Event<int>>();
+
+    MockedFn<std::function<void(int)>> onEventFn;
+    auto sub = a->subscribe(onEventFn.fn());
+    EXPECT_NE(sub, nullptr);
+
+    a.reset();
+    sub.reset();
+}
+
 TEST(EventTests, subscribe)
 {
     Event<int> a;
@@ -40,20 +66,4 @@ TEST(EventTests, subscribe)
     MockedFn<std::function<void(int)>> onEventFn;
     auto sub = a.subscribe(onEventFn.fn());
     EXPECT_NE(sub, nullptr);
-}
-
-TEST(EventTests, createListener)
-{
-    Event<int> a;
-
-    auto listener = a.createListener();
-    EXPECT_NE(listener, nullptr);
-
-    a.notify(20);
-
-    MockedFn<std::function<void(int)>> onEventFn;
-    listener->setFunction(onEventFn.fn());
-
-    EXPECT_CALL(onEventFn, f(25));
-    a.notify(25);
 }

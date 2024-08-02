@@ -32,7 +32,7 @@ public:
      * @param func function to be called on attribute change
      * @return Subscription listener object
      */
-    virtual Subscription subscribe(EventFunc &&func) = 0;
+    virtual Subscription subscribe(const EventFunc &func) = 0;
 
     /**
      * @brief Subscribes listener to attribute's change.
@@ -41,7 +41,7 @@ public:
      * @param func function to be called on attribute change
      * @return Subscription listener object
      */
-    virtual Subscription subscribeAndGet(EventFunc &&func) = 0;
+    virtual Subscription subscribeAndGet(const EventFunc &func) = 0;
 };
 
 } // namespace psi::comm

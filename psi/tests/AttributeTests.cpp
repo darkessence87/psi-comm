@@ -80,19 +80,3 @@ TEST(AttributeTests, subscribeAndGet)
     auto sub = a.subscribeAndGet(onEventFn.fn());
     EXPECT_NE(sub, nullptr);
 }
-
-TEST(AttributeTests, createListener)
-{
-    Attribute<int> a(15);
-
-    auto listener = a.createListener();
-    EXPECT_NE(listener, nullptr);
-
-    a.setValue(20);
-
-    MockedFn<std::function<void(int, int)>> onEventFn;
-    listener->setFunction(onEventFn.fn());
-
-    EXPECT_CALL(onEventFn, f(20, 25));
-    a.setValue(25);
-}

@@ -21,6 +21,7 @@ public:
 
     class Listener;
     using WeakSubscription = std::weak_ptr<Listener>;
+    using ListenersList = std::list<WeakSubscription>;
     using Func = typename Interface::Func;
 
     /**
@@ -34,7 +35,7 @@ public:
         /// @brief Constructs listener object
         /// @param holder reference to holder of all listeners
         /// @param fn function to be called whenever event is sent
-        Listener(std::list<WeakSubscription> &holder, Func &&fn)
+        Listener(std::weak_ptr<ListenersList> holder, Func &&fn)
             : m_holder(holder)
             , m_function(std::forward<Func>(fn))
         {
@@ -43,18 +44,13 @@ public:
         /// @brief Destroys the listener and removes it from holder's list
         ~Listener()
         {
-            m_holder.erase(std::next(m_identifier).base());
-        }
-
-        /// @brief Reaction may be changed any time between event's notifications
-        /// @param fn new function to be called on event sent
-        void setFunction(Func &&fn)
-        {
-            m_function = std::forward<Func>(fn);
+            if (auto holder = m_holder.lock()) {
+                holder->erase(std::next(m_identifier).base());
+            }
         }
 
     private:
-        std::list<WeakSubscription> &m_holder;
+        std::weak_ptr<ListenersList> m_holder;
         Identifier m_identifier;
         Func m_function;
 
@@ -62,9 +58,13 @@ public:
     };
 
 public:
+    Event() : m_listeners(std::make_shared<ListenersList>())
+    {
+    }
+
     ~Event()
     {
-        m_listeners.clear();
+        m_listeners->clear();
     }
 
     /**
@@ -75,12 +75,10 @@ public:
      */
     virtual void notify(Args... args) const
     {
-        auto copy = m_listeners;
+        auto copy = *m_listeners.get();
         for (auto itr = copy.begin(); itr != copy.end(); ++itr) {
             if (auto ptr = itr->lock()) {
-                ptr->m_function(std::forward<Args>(args)...);
-            } else {
-                throw std::domain_error("Listener has no ptr!");
+                ptr->m_function(args...);
             }
         }
     }
@@ -91,10 +89,10 @@ public:
      * @param fn function to be called on event sent
      * @return Subscription listener object, as long as listener object exists event will notify it
      */
-    Subscription subscribe(Func &&fn) override
+    Subscription subscribe(const Func &fn) override
     {
         auto listener = createListener();
-        listener->setFunction(std::forward<Func>(fn));
+        listener->m_function = fn;
         return std::dynamic_pointer_cast<Subscribable>(listener);
     }
 
@@ -108,13 +106,13 @@ public:
     {
         auto listener =
             std::make_shared<Listener>(m_listeners, [this](Args &&...) { std::cerr << "Not implemented!" << std::endl; });
-        m_listeners.emplace_back(listener);
-        listener->m_identifier = m_listeners.rbegin();
+        m_listeners->emplace_back(listener);
+        listener->m_identifier = m_listeners->rbegin();
         return listener;
     }
 
 protected:
-    std::list<WeakSubscription> m_listeners;
+    std::shared_ptr<ListenersList> m_listeners;
 };
 
 } // namespace psi::comm
