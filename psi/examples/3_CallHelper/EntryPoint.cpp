@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <set>
+#include <string>
 
 #include "AsyncStrategy.h"
 

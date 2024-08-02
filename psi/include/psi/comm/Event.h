@@ -35,9 +35,9 @@ public:
         /// @brief Constructs listener object
         /// @param holder reference to holder of all listeners
         /// @param fn function to be called whenever event is sent
-        Listener(std::weak_ptr<ListenersList> holder, Func &&fn)
+        Listener(std::weak_ptr<ListenersList> holder, const Func &fn)
             : m_holder(holder)
-            , m_function(std::forward<Func>(fn))
+            , m_function(fn)
         {
         }
 
