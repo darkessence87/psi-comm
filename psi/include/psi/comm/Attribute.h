@@ -79,7 +79,7 @@ public:
      * @param func function to be called on attribute change
      * @return Subscription listener object
      */
-    Subscription subscribe(const EventFunc &func) override
+    Subscription subscribe(const EventFunc &func) const override
     {
         return m_event->subscribe(func);
     }
@@ -91,7 +91,7 @@ public:
      * @param func function to be called on attribute change
      * @return Subscription listener object
      */
-    Subscription subscribeAndGet(const EventFunc &func) override
+    Subscription subscribeAndGet(const EventFunc &func) const override
     {
         func(m_value, m_value);
         return subscribe(func);

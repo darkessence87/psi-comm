@@ -21,7 +21,7 @@ public:
     /// @brief Subscribes a function to be called whenever event is sent
     /// @param fn function to be called whenever event is sent
     /// @return listener object, as long as listener object exists event will notify it
-    virtual Subscription subscribe(const Func &fn) = 0;
+    virtual Subscription subscribe(const Func &fn) const = 0;
 };
 
 } // namespace psi::comm

@@ -89,7 +89,7 @@ public:
      * @param fn function to be called on event sent
      * @return Subscription listener object, as long as listener object exists event will notify it
      */
-    Subscription subscribe(const Func &fn) override
+    Subscription subscribe(const Func &fn) const override
     {
         auto listener = createListener();
         listener->m_function = fn;
@@ -102,7 +102,7 @@ public:
      * 
      * @return std::shared_ptr<Listener> pointer to listener object
      */
-    std::shared_ptr<Listener> createListener()
+    std::shared_ptr<Listener> createListener() const
     {
         auto listener =
             std::make_shared<Listener>(m_listeners, [this](Args &&...) { std::cerr << "Not implemented!" << std::endl; });
