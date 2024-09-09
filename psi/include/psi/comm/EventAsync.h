@@ -10,8 +10,8 @@ namespace psi::comm {
  * 
  * @tparam Args 
  */
-template <typename Strategy, typename... Args>
-class EventAsync : public Event<Args...>
+template <typename Strategy, typename Event>
+class EventAsync : public Event
 {
 public:
     /**
@@ -31,9 +31,10 @@ public:
      * 
      * @param args 
      */
-    void notify(Args... args) const override
+    template <typename... Args>
+    void notify(Args... args) const
     {
-        m_strategy.asyncCall(m_guard.invoke([=]() { Event<Args...>::notify(args...); }));
+        m_strategy.asyncCall(m_guard.invoke([=]() { Event::notify(args...); }));
     }
 
 protected:

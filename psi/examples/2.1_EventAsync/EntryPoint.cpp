@@ -8,7 +8,7 @@ int main()
     
     examples::ExampleStrategy strategy;
 
-    comm::EventAsync<examples::ExampleStrategy, int> eventA(strategy);
+    comm::EventAsync<examples::ExampleStrategy, comm::Event<int>> eventA(strategy);
 
     std::mutex mtx;
     auto subscription1 = eventA.subscribe([&](const auto &value) {

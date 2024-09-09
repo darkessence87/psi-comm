@@ -22,7 +22,7 @@ public:
      */
     template <typename Strategy>
     AttributeAsync(Strategy &strategy)
-        : Attribute<T>(std::make_unique<EventAsync<Strategy, T, T>>(strategy))
+        : Attribute<T>(std::make_unique<EventAsync<Strategy, Event<T, T>>>(strategy))
     {
     }
 };
