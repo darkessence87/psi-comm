@@ -34,7 +34,7 @@ public:
     template <typename... Args>
     void notify(Args... args) const
     {
-        m_strategy.asyncCall(m_guard.invoke([=]() { Event::notify(args...); }));
+        m_strategy.asyncCall(m_guard.invoke([=, this]() { Event::notify(args...); }));
     }
 
 protected:

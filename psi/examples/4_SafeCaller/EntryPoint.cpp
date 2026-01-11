@@ -36,8 +36,6 @@ int main()
     class Client final
     {
     public:
-        using BoolCallback = std::function<void(bool)>;
-
         Client(Server *server)
             : m_guard(this)
             , m_server(server)

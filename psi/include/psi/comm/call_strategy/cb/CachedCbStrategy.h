@@ -9,7 +9,7 @@
 
 namespace psi::comm {
 
-template <typename... CbArgs, typename InputComparable>
+template <typename InputComparable, typename... CbArgs>
 class CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable> : public BasicStrategy
 {
     struct CacheKey;
@@ -35,7 +35,7 @@ private:
     std::unique_ptr<Processor> m_processor;
 };
 
-template <typename InputParam, typename... CbArgs>
-using CachedCbStrategy = CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputParam>;
+template <typename InputComparable, typename... CbArgs>
+using CachedCbStrategy = CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>;
 
 } // namespace psi::comm

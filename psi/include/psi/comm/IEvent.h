@@ -18,6 +18,8 @@ public:
     /// @brief type of function is used for notifications
     using Func = std::function<void(Args...)>;
 
+    virtual ~IEvent() = default;
+
     /// @brief Subscribes a function to be called whenever event is sent
     /// @param fn function to be called whenever event is sent
     /// @return listener object, as long as listener object exists event will notify it

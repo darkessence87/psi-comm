@@ -44,6 +44,8 @@ public:
     {
     }
 
+    virtual ~Attribute() = default;
+
     /**
      * @brief Returns current value of attribute
      * 
@@ -66,7 +68,7 @@ public:
         const bool needNotification = m_value != value;
         const auto oldValue = m_value;
 
-        m_value = std::forward<T>(value);
+        m_value = value;
 
         if (needNotification) {
             m_event->notify(oldValue, m_value);

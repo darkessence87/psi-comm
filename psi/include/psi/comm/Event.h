@@ -19,7 +19,7 @@ public:
     /// @brief Short alias to interface. Interface has to be provided to other clients who should only listen to event
     using Interface = IEvent<Args...>;
 
-    class Listener;
+    struct Listener;
     using WeakSubscription = std::weak_ptr<Listener>;
     using ListenersList = std::list<WeakSubscription>;
     using Func = typename Interface::Func;
@@ -28,7 +28,7 @@ public:
      * @brief Listener will automatically unsubscribe from event if it is destroyed
      * 
      */
-    struct Listener final : std::enable_shared_from_this<Listener>, Subscribable {
+    struct Listener final : Subscribable {
         /// @brief Unique id of listener, in fact it is iterator of holder's list
         using Identifier = typename std::list<WeakSubscription>::reverse_iterator;
 
@@ -73,12 +73,12 @@ public:
      * 
      * @param args 
      */
-    virtual void notify(Args... args) const
+    void notify(auto&&... args) const
     {
         auto copy = *m_listeners.get();
         for (auto itr = copy.begin(); itr != copy.end(); ++itr) {
             if (auto ptr = itr->lock()) {
-                ptr->m_function(args...);
+                ptr->m_function(std::forward<decltype(args)>(args)...);
             }
         }
     }
@@ -105,7 +105,7 @@ public:
     std::shared_ptr<Listener> createListener() const
     {
         auto listener =
-            std::make_shared<Listener>(m_listeners, [this](Args &&...) { std::cerr << "Not implemented!" << std::endl; });
+            std::make_shared<Listener>(m_listeners, [](Args &&...) { std::cerr << "Not implemented!" << std::endl; });
         m_listeners->emplace_back(listener);
         listener->m_identifier = m_listeners->rbegin();
         return listener;

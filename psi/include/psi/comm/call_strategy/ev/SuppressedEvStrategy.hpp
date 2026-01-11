@@ -6,14 +6,14 @@
 namespace psi::comm {
 
 template <typename... EvArgs, typename... CbArgs>
-SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::EvStrategy(const std::string &logPrefix)
+EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::EvStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(EvStrategyType::SuppressedSync), logPrefix)
 {
     logInfo("EvStrategy created");
 }
 
 template <typename... EvArgs, typename... CbArgs>
-SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
+EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
 {
     m_isClosing = true;
 
@@ -32,9 +32,10 @@ SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequest(RequestFunc request,
-                                                                                    ResponseFunc response,
-                                                                                    EventFunc onEvent)
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequest(
+    RequestFunc request,
+    ResponseFunc response,
+    EventFunc onEvent)
 {
     if (m_isClosing) {
         return;
@@ -53,7 +54,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequ
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent(EvArgs... args)
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent(EvArgs... args)
 {
     if (m_isClosing) {
         return;
@@ -72,7 +73,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processEven
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseRequest()
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseRequest()
 {
     if (m_isClosing) {
         return;
@@ -88,7 +89,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseReques
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::continueRequest()
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::continueRequest()
 {
     if (m_isClosing) {
         return;
@@ -102,7 +103,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::continueReq
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext()
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext()
 {
     if (m_isClosing) {
         return;
@@ -131,8 +132,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext
 
             logInfo("send failed responses");
             std::tuple<EvArgs...> defaultValues;
-            VariadicCaller<EvArgs...>::invoke([&defaultValues, this](EvArgs... args) { sendResults(args...); },
-                                              defaultValues);
+            VariadicCaller<EvArgs...>::invoke([this](EvArgs... args) { sendResults(args...); }, defaultValues);
         }
 
         return result;
@@ -140,7 +140,7 @@ void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void SuppressedEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::sendResults(EvArgs... args)
+void EvStrategy<EvStrategyType::SuppressedSync, TypeList<EvArgs...>, TypeList<CbArgs...>>::sendResults(EvArgs... args)
 {
     while (!m_isClosing && !m_requestQueue.empty()) {
         auto ev = std::get<2>(m_requestQueue.front());

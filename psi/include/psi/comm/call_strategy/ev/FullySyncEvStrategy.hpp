@@ -6,14 +6,14 @@
 namespace psi::comm {
 
 template <typename... EvArgs, typename... CbArgs>
-FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::EvStrategy(const std::string &logPrefix)
+EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::EvStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(EvStrategyType::FullySync), logPrefix)
 {
     logInfo("EvStrategy created");
 }
 
 template <typename... EvArgs, typename... CbArgs>
-FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
+EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
 {
     m_isClosing = true;
 
@@ -32,9 +32,9 @@ FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequest(RequestFunc &&request,
-                                                                                   ResponseFunc &&response,
-                                                                                   EvFunc &&onEvent)
+void EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequest(RequestFunc &&request,
+                                                                                                     ResponseFunc &&response,
+                                                                                                     EvFunc &&onEvent)
 {
     if (m_isClosing) {
         return;
@@ -55,7 +55,7 @@ void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processReque
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent(EvArgs... args)
+void EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent(EvArgs... args)
 {
     if (m_isClosing) {
         return;
@@ -86,7 +86,7 @@ void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseRequest()
+void EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseRequest()
 {
     if (m_isClosing) {
         return;
@@ -106,7 +106,7 @@ void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::pauseRequest
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::continueRequest()
+void EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::continueRequest()
 {
     if (m_isClosing) {
         return;
@@ -122,7 +122,7 @@ void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::continueRequ
 }
 
 template <typename... EvArgs, typename... CbArgs>
-void FullySyncEvStrategy<TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext()
+void EvStrategy<EvStrategyType::FullySync, TypeList<EvArgs...>, TypeList<CbArgs...>>::processNext()
 {
     if (m_requestQueue.empty()) {
         return;

@@ -8,8 +8,8 @@
 
 namespace psi::comm {
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-struct CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::CacheKey {
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+struct EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::CacheKey {
     static_assert(std::is_base_of<Comparable, InputComparable>() || std::is_standard_layout<InputComparable>(),
                   "In CacheKey type <InputComparable> must inherite 'struct Comparable'");
 
@@ -21,8 +21,8 @@ struct CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...
     }
 };
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-struct CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::CacheValue {
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+struct EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::CacheValue {
     using Func = std::function<void(EvArgs...)>;
     std::optional<std::tuple<EvArgs...>> result;
     std::list<Func> callbacks;
@@ -34,25 +34,27 @@ struct CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...
     }
 };
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::EvStrategy(const std::string &logPrefix)
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::EvStrategy(
+    const std::string &logPrefix)
     : BasicStrategy(asString(EvStrategyType::CachedSync), logPrefix)
     , m_processor(std::make_unique<Processor>(logPrefix.empty() ? "" : logPrefix + "Cached"))
 {
     logInfo("EvStrategy created");
 }
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::~EvStrategy()
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::~EvStrategy()
 {
     logInfo("EvStrategy deleted");
 }
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-void CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::processRequest(const InputComparable &in,
-                                                                                                 RequestFunc &&request,
-                                                                                                 ResponseFunc &&response,
-                                                                                                 EvFunc &&onEvent)
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+void EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::processRequest(
+    const InputComparable &in,
+    RequestFunc &&request,
+    ResponseFunc &&response,
+    EvFunc &&onEvent)
 {
     CacheKey key {in};
     auto itr = m_cacheMap.find(key);
@@ -86,21 +88,24 @@ void CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>
     itr->second.invoke(onEvent);
 }
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-void CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::processEvent(EvArgs... args)
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+void EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::processEvent(
+    EvArgs... args)
 {
     m_processor->processEvent(args...);
 }
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-void CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::reset()
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+void EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::reset()
 {
     m_processor.reset(new Processor());
     m_cacheMap.clear();
 }
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
-void CachedEvStrategy<InputComparable, TypeList<EvArgs...>, TypeList<CbArgs...>>::onResponse(CacheKey key, EvArgs... result)
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
+void EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable>::onResponse(
+    CacheKey key,
+    EvArgs... result)
 {
     auto itr = m_cacheMap.find(key);
     if (itr == m_cacheMap.end()) {

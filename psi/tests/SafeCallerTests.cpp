@@ -39,10 +39,10 @@ struct Client final {
 
     void foo(ClientCallback cb)
     {
-        auto fallback = [this]() { std::cout << "failed callback" << std::endl; };
+        auto fallback = []() { std::cout << "failed callback" << std::endl; };
 
         m_server.request(m_callerGuard.invoke(
-            [this, cb]() {
+            [cb]() {
                 ++m_calledTimes;
                 cb();
             },
@@ -52,7 +52,7 @@ struct Client final {
 
     void goo(ClientCallback cb)
     {
-        m_server.request(m_callerGuard.invoke([this, cb]() {
+        m_server.request(m_callerGuard.invoke([cb]() {
             ++m_calledTimes;
             cb();
         }));

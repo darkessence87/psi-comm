@@ -6,20 +6,20 @@
 namespace psi::comm {
 
 template <typename... CbArgs>
-AsyncCbStrategy<CbArgs...>::CbStrategy(const std::string &logPrefix)
+CbStrategy<CbStrategyType::Async, TypeList<CbArgs...>>::CbStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(CbStrategyType::Async), logPrefix)
 {
     logInfo("CbStrategy created");
 }
 
 template <typename... CbArgs>
-AsyncCbStrategy<CbArgs...>::~CbStrategy()
+CbStrategy<CbStrategyType::Async, TypeList<CbArgs...>>::~CbStrategy()
 {
     logInfo("CbStrategy deleted");
 }
 
 template <typename... CbArgs>
-void AsyncCbStrategy<CbArgs...>::processRequest(RequestFunc request, ResponseFunc response)
+void CbStrategy<CbStrategyType::Async, TypeList<CbArgs...>>::processRequest(RequestFunc request, ResponseFunc response)
 {
     logInfo("process request");
     request(response);

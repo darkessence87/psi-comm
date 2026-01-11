@@ -8,8 +8,8 @@
 
 namespace psi::comm {
 
-template <typename... CbArgs, typename InputComparable>
-struct CachedCbStrategy<InputComparable, CbArgs...>::CacheKey {
+template <typename InputComparable, typename... CbArgs>
+struct CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::CacheKey {
     static_assert(std::is_base_of<Comparable, InputComparable>() || std::is_standard_layout<InputComparable>(),
                   "In CacheKey type <InputComparable> must inherite 'struct Comparable'");
 
@@ -21,8 +21,8 @@ struct CachedCbStrategy<InputComparable, CbArgs...>::CacheKey {
     }
 };
 
-template <typename... CbArgs, typename InputComparable>
-struct CachedCbStrategy<InputComparable, CbArgs...>::CacheValue {
+template <typename InputComparable, typename... CbArgs>
+struct CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::CacheValue {
     using Func = std::function<void(CbArgs...)>;
     std::optional<std::tuple<CbArgs...>> result;
     std::list<Func> callbacks;
@@ -34,24 +34,24 @@ struct CachedCbStrategy<InputComparable, CbArgs...>::CacheValue {
     }
 };
 
-template <typename... CbArgs, typename InputComparable>
-CachedCbStrategy<InputComparable, CbArgs...>::CbStrategy(const std::string &logPrefix)
+template <typename InputComparable, typename... CbArgs>
+CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::CbStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(CbStrategyType::CachedAsync), logPrefix)
     , m_processor(std::make_unique<Processor>(logPrefix.empty() ? "" : logPrefix + "Cached"))
 {
     logInfo("CbStrategy created");
 }
 
-template <typename... CbArgs, typename InputComparable>
-CachedCbStrategy<InputComparable, CbArgs...>::~CbStrategy()
+template <typename InputComparable, typename... CbArgs>
+CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::~CbStrategy()
 {
     logInfo("CbStrategy deleted");
 }
 
-template <typename... CbArgs, typename InputComparable>
-void CachedCbStrategy<InputComparable, CbArgs...>::processRequest(const InputComparable &in,
-                                                                  RequestFunc &&request,
-                                                                  ResponseFunc &&response)
+template <typename InputComparable, typename... CbArgs>
+void CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::processRequest(const InputComparable &in,
+                                                                                                   RequestFunc &&request,
+                                                                                                   ResponseFunc &&response)
 {
     CacheKey key {in};
     auto itr = m_cacheMap.find(key);
@@ -83,15 +83,15 @@ void CachedCbStrategy<InputComparable, CbArgs...>::processRequest(const InputCom
     itr->second.invoke(response);
 }
 
-template <typename... CbArgs, typename InputComparable>
-void CachedCbStrategy<InputComparable, CbArgs...>::reset()
+template <typename InputComparable, typename... CbArgs>
+void CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::reset()
 {
     m_processor.reset(new Processor());
     m_cacheMap.clear();
 }
 
-template <typename... CbArgs, typename InputComparable>
-void CachedCbStrategy<InputComparable, CbArgs...>::onResponse(CacheKey key, CbArgs... result)
+template <typename InputComparable, typename... CbArgs>
+void CbStrategy<CbStrategyType::CachedAsync, TypeList<CbArgs...>, InputComparable>::onResponse(CacheKey key, CbArgs... result)
 {
     auto itr = m_cacheMap.find(key);
     if (itr == m_cacheMap.end()) {

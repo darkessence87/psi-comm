@@ -6,14 +6,14 @@
 namespace psi::comm {
 
 template <typename... CbArgs>
-FullySyncCbStrategy<CbArgs...>::CbStrategy(const std::string &logPrefix)
+CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::CbStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(CbStrategyType::FullySync), logPrefix)
 {
     logInfo("CbStrategy created");
 }
 
 template <typename... CbArgs>
-FullySyncCbStrategy<CbArgs...>::~CbStrategy()
+CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::~CbStrategy()
 {
     interruptImmediately();
 
@@ -21,7 +21,7 @@ FullySyncCbStrategy<CbArgs...>::~CbStrategy()
 }
 
 template <typename... CbArgs>
-void FullySyncCbStrategy<CbArgs...>::interrupt()
+void CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::interrupt()
 {
     m_isClosing = true;
 
@@ -38,14 +38,14 @@ void FullySyncCbStrategy<CbArgs...>::interrupt()
 }
 
 template <typename... CbArgs>
-void FullySyncCbStrategy<CbArgs...>::interruptImmediately()
+void CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::interruptImmediately()
 {
     m_interruptImmediately = true;
     interrupt();
 }
 
 template <typename... CbArgs>
-void FullySyncCbStrategy<CbArgs...>::processRequest(RequestFunc request, ResponseFunc response)
+void CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::processRequest(RequestFunc request, ResponseFunc response)
 {
     if (m_isClosing) {
         return;
@@ -66,7 +66,7 @@ void FullySyncCbStrategy<CbArgs...>::processRequest(RequestFunc request, Respons
 }
 
 template <typename... CbArgs>
-void FullySyncCbStrategy<CbArgs...>::processNext()
+void CbStrategy<CbStrategyType::FullySync, TypeList<CbArgs...>>::processNext()
 {
     if (m_queue.empty()) {
         return;

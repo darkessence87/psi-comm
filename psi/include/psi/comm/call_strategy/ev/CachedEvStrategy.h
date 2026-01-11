@@ -9,7 +9,7 @@
 
 namespace psi::comm {
 
-template <typename... EvArgs, typename... CbArgs, typename InputComparable>
+template <typename InputComparable, typename... EvArgs, typename... CbArgs>
 class EvStrategy<EvStrategyType::CachedSync, TypeList<EvArgs...>, TypeList<CbArgs...>, InputComparable> : public BasicStrategy
 {
     struct CacheKey;
@@ -37,7 +37,7 @@ private:
     std::unique_ptr<Processor> m_processor;
 };
 
-template <typename InputParam, typename EvArgsList, typename CbArgsList>
-using CachedEvStrategy = EvStrategy<EvStrategyType::CachedSync, EvArgsList, CbArgsList, InputParam>;
+template <typename InputComparable, typename EvArgsList, typename CbArgsList>
+using CachedEvStrategy = EvStrategy<EvStrategyType::CachedSync, EvArgsList, CbArgsList, InputComparable>;
 
 } // namespace psi::comm

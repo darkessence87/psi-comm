@@ -4,14 +4,14 @@
 namespace psi::comm {
 
 template <typename... CbArgs>
-SuppressedCbStrategy<CbArgs...>::CbStrategy(const std::string &logPrefix)
+CbStrategy<CbStrategyType::SuppressedSync, TypeList<CbArgs...>>::CbStrategy(const std::string &logPrefix)
     : BasicStrategy(asString(CbStrategyType::SuppressedSync), logPrefix)
 {
     logInfo("CbStrategy created");
 }
 
 template <typename... CbArgs>
-SuppressedCbStrategy<CbArgs...>::~CbStrategy()
+CbStrategy<CbStrategyType::SuppressedSync, TypeList<CbArgs...>>::~CbStrategy()
 {
     interruptImmediately();
 
@@ -19,7 +19,7 @@ SuppressedCbStrategy<CbArgs...>::~CbStrategy()
 }
 
 template <typename... CbArgs>
-void SuppressedCbStrategy<CbArgs...>::interrupt()
+void CbStrategy<CbStrategyType::SuppressedSync, TypeList<CbArgs...>>::interrupt()
 {
     m_isClosing = true;
 
@@ -36,14 +36,15 @@ void SuppressedCbStrategy<CbArgs...>::interrupt()
 }
 
 template <typename... CbArgs>
-void SuppressedCbStrategy<CbArgs...>::interruptImmediately()
+void CbStrategy<CbStrategyType::SuppressedSync, TypeList<CbArgs...>>::interruptImmediately()
 {
     m_interruptImmediately = true;
     interrupt();
 }
 
 template <typename... CbArgs>
-void SuppressedCbStrategy<CbArgs...>::processRequest(RequestFunc request, ResponseFunc response)
+void CbStrategy<CbStrategyType::SuppressedSync, TypeList<CbArgs...>>::processRequest(RequestFunc request,
+                                                                                     ResponseFunc response)
 {
     if (m_isClosing) {
         return;

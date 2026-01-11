@@ -41,6 +41,7 @@ void doTest(T a, const int threadsN)
 }
 
 struct A {
+    virtual ~A() = default;
     virtual void increment()
     {
         ++m_value;
@@ -170,4 +171,4 @@ TEST_P(SynchedTest, MultiThread_Atomic)
 
 const int testParams[] = {2, 4, 6, 8, 16};
 
-INSTANTIATE_TEST_CASE_P(SynchedTests, SynchedTest, ValuesIn(testParams));
+INSTANTIATE_TEST_SUITE_P(SynchedTests, SynchedTest, ValuesIn(testParams));
