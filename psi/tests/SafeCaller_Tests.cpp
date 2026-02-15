@@ -1,5 +1,5 @@
 
-#include <gtest/gtest.h>
+#include "psi/test/psi_mock.h"
 
 #include <map>
 #include <queue>
@@ -7,6 +7,7 @@
 #include "psi/comm/SafeCaller.h"
 
 using namespace psi::comm;
+using namespace psi::test;
 
 struct Server {
     using Func = std::function<void()>;
@@ -100,7 +101,7 @@ private:
     std::map<int, std::shared_ptr<Client>> m_clients;
 };
 
-TEST(SafeCaller, TestRawPointer)
+TEST(SafeCaller_Tests, TestRawPointer)
 {
     Server s;
 
@@ -116,7 +117,7 @@ TEST(SafeCaller, TestRawPointer)
     EXPECT_EQ(Client::fooCallbackCalled(), 0);
 }
 
-TEST(SafeCaller, TestSharedPointer)
+TEST(SafeCaller_Tests, TestSharedPointer)
 {
     Server s;
 
@@ -132,7 +133,7 @@ TEST(SafeCaller, TestSharedPointer)
     EXPECT_EQ(Client::fooCallbackCalled(), 0);
 }
 
-TEST(SafeCaller, TestSharedPointerArrays)
+TEST(SafeCaller_Tests, TestSharedPointerArrays)
 {
     ClientHolder clients;
     Server s;

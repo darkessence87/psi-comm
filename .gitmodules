@@ -1,9 +1,9 @@
 [submodule "3rdparty/psi-tools"]
 	path = 3rdparty/psi-tools
 	url = https://github.com/darkessence87/psi-tools.git
-[submodule "3rdparty/psi-gtests"]
-	path = 3rdparty/psi-gtests
-	url = https://github.com/darkessence87/psi-gtests.git
 [submodule "3rdparty/psi-cmake"]
 	path = 3rdparty/psi-cmake
 	url = https://github.com/darkessence87/psi-cmake.git
+[submodule "3rdparty/psi-test"]
+	path = 3rdparty/psi-test
+	url = https://github.com/darkessence87/psi-test.git

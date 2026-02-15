@@ -110,6 +110,8 @@ public:
         return m_event->createListener();
     }
 
+    struct Attribute_Tests;
+
 private:
     T m_value;
     std::unique_ptr<Event<T /*old value*/, T /*new value*/>> m_event;

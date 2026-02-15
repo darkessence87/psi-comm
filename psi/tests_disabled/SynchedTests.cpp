@@ -1,10 +1,10 @@
 
-#include <gtest/gtest.h>
+#include "psi/test/psi_test.h"
 
 #include "psi/comm/Synched.h"
 
-using namespace ::testing;
 using namespace psi::comm;
+using namespace psi::test;
 
 template <typename T>
 void doTest(T a, const int threadsN)

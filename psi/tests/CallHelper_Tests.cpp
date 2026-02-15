@@ -1,27 +1,22 @@
-#include "TestHelper.h"
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "psi/test/psi_mock.h"
 
-#define private public
 #include "psi/comm/CallHelper.h"
-#undef private
 
 #include <condition_variable>
 #include <mutex>
 #include <queue>
 #include <thread>
 
-using namespace ::testing;
 using namespace psi::comm::call_helper;
 using namespace psi::test;
 
-TEST(CallHelperTests, runAll)
+TEST(CallHelper_Tests, runAll)
 {
     Requests<bool> requests;
     using CbType = std::function<void(bool)>;
 
     const size_t requestsNumber = 100;
-    MockedFn<CbType> finalCb;
+    auto finalCb = MockedFn<CbType>::create();
     const int expectedNumberOfSuccess = 50;
     const int expectedSum = requestsNumber * 10;
     int value = 0;
@@ -33,8 +28,8 @@ TEST(CallHelperTests, runAll)
         })));
     }
 
-    EXPECT_CALL(finalCb, f(true));
-    runAll<bool>(requests, [requestsNumber, expectedNumberOfSuccess, cb = finalCb.fn()](std::vector<bool> results) {
+    EXPECT_CALL(finalCb, 1).WithArgs(true);
+    runAll<bool>(requests, [requestsNumber, expectedNumberOfSuccess, cb = finalCb->fn()](std::vector<bool> results) {
         ASSERT_EQ(results.size(), requestsNumber);
 
         int numberOfSuccess = 0;
@@ -49,7 +44,7 @@ TEST(CallHelperTests, runAll)
     EXPECT_EQ(expectedSum, value);
 }
 
-TEST(CallHelperTests, runAllAsync)
+TEST(CallHelper_Tests, runAllAsync)
 {
     class TestStrategy
     {
@@ -110,7 +105,7 @@ TEST(CallHelperTests, runAllAsync)
     using CbType = std::function<void(bool)>;
 
     const size_t requestsNumber = 100;
-    MockedFn<CbType> finalCb;
+    auto finalCb = MockedFn<CbType>::create();
     const int expectedNumberOfSuccess = 50;
     const int expectedSum = requestsNumber * 10;
     std::atomic<int> value = 0;
@@ -122,10 +117,10 @@ TEST(CallHelperTests, runAllAsync)
         })));
     }
 
-    EXPECT_CALL(finalCb, f(true));
+    EXPECT_CALL(finalCb, 1).WithArgs(true);
     runAllAsync<TestStrategy, bool>(strategy,
                                     requests,
-                                    [requestsNumber, expectedNumberOfSuccess, cb = finalCb.fn()](std::vector<bool> results) {
+                                    [requestsNumber, expectedNumberOfSuccess, cb = finalCb->fn()](std::vector<bool> results) {
                                         ASSERT_EQ(results.size(), requestsNumber);
 
                                         int numberOfSuccess = 0;
@@ -139,5 +134,5 @@ TEST(CallHelperTests, runAllAsync)
 
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
-    EXPECT_EQ(expectedSum, value);
+    EXPECT_EQ(expectedSum, value.load());
 }

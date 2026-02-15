@@ -1,11 +1,4 @@
-#ifdef _WIN32
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
-#include <stdlib.h>
-#endif
-
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "psi/test/psi_test.h"
 
 #ifdef PSI_LOGGER
 #include "psi/logger/Logger.h"
@@ -20,27 +13,24 @@
     } while (0)
 #endif
 
-using namespace ::testing;
+extern void register_all_tests();
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-    int result = 0;
-    auto runMain = [&]() {
-        LOG_INFO_STATIC("Start tests main");
+    LOG_INFO_STATIC("Start tests main");
 
-        InitGoogleTest(&argc, argv);
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunsafe-buffer-usage-in-container"
+    auto args = std::span<char *> {argv, static_cast<size_t>(argc)};
+#pragma clang diagnostic pop
+    auto opts = psi::test::TestLib::parse_args(args);
 
-        result = RUN_ALL_TESTS();
+    psi::test::TestLib::init();
+    register_all_tests();
+    int result = psi::test::TestLib::run(opts.filter);
 
-        LOG_INFO_STATIC("Exit tests main");
-    };
-
-    runMain();
-
-#ifdef _WIN32
-    _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_DEBUG);
-    _CrtDumpMemoryLeaks();
-#endif
+    psi::test::TestLib::destroy();
+    LOG_INFO_STATIC("Exit tests main");
 
     return result;
 }

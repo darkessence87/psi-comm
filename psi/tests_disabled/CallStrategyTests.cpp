@@ -1,6 +1,4 @@
-#include "TestHelper.h"
-#include <gmock/gmock.h>
-#include <gtest/gtest.h>
+#include "psi/test/psi_test.h"
 
 #include "psi/comm/call_strategy/cb/AsyncCbStrategy.hpp"
 #include "psi/comm/call_strategy/cb/CachedCbStrategy.hpp"
@@ -17,7 +15,6 @@
 #include <queue>
 #include <thread>
 
-using namespace ::testing;
 using namespace psi::comm;
 using namespace psi::test;
 

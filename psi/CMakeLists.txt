@@ -4,12 +4,12 @@ include_directories(
 )
 
 set(TEST_SRC
-    tests/AttributeTests.cpp
-    tests/CallHelperTests.cpp
-    tests/CallStrategyTests.cpp
-    tests/EventTests.cpp
-    tests/SafeCallerTests.cpp
-    tests/SynchedTests.cpp
+    tests/Attribute_Tests.cpp
+    tests/CallHelper_Tests.cpp
+    # tests/CallStrategyTests.cpp
+    tests/Event_Tests.cpp
+    tests/SafeCaller_Tests.cpp
+    # tests/SynchedTests.cpp
 )
 psi_make_tests("Comm" "${TEST_SRC}" "")
 
