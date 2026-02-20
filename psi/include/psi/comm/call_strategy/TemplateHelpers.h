@@ -23,10 +23,10 @@ struct TypeList;
 template <typename... Args>
 struct VariadicCaller {
     template <typename Func>
-    static void invoke(Func &&fn, std::tuple<Args...> &result)
+    static void invoke(Func &&fn_, std::tuple<Args...> &result)
     {
         return index_apply<sizeof...(Args)>(
-            [&result, fn = std::forward<Func>(fn)](auto... N) { fn(std::get<N>(result)...); });
+            [&result, fn = std::forward<Func>(fn_)](auto... N) { fn(std::get<N>(result)...); });
     }
 
     template <typename Func>
@@ -36,9 +36,9 @@ struct VariadicCaller {
     }
 
     template <typename C, typename Func>
-    static void invoke(C &&caller, Func &&fn, std::tuple<Args...> &result)
+    static void invoke(C &&caller_, Func &&fn_, std::tuple<Args...> &result)
     {
-        return index_apply<sizeof...(Args)>([caller = std::forward<C>(caller), fn = std::forward<Func>(fn), &result](
+        return index_apply<sizeof...(Args)>([caller = std::forward<C>(caller_), fn = std::forward<Func>(fn_), &result](
                                                 auto... N) { (caller->*fn)(std::get<N>(result)...); });
     }
 

@@ -8,7 +8,6 @@ namespace psi::comm {
 /**
  * @brief EventAsync class is used for asynchronous notification listeners
  * 
- * @tparam Args 
  */
 template <typename Strategy, typename Event>
 class EventAsync : public Event
@@ -29,12 +28,12 @@ public:
      * @brief Notifies all listeners asynchronously.
      * It is safe to remove listener in a reaction.
      * 
-     * @param args 
+     * @param args list of arguments
      */
     template <typename... Args>
     void notify(Args... args) const
     {
-        m_strategy.asyncCall(m_guard.invoke([=, this]() { Event::notify(args...); }));
+        m_strategy.asyncCall(m_guard.invoke([this, args...]() { Event::notify(args...); }));
     }
 
 protected:

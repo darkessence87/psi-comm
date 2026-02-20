@@ -88,11 +88,7 @@ public:
     auto invoke(Func &&fn, VoidFunc &&fallback = nullptr, const std::string &cbName = "[Unspecified]") const
     {
         std::weak_ptr<Guard> weakPtr = m_caller;
-        return [weakPtr,
-                addr = address(),
-                fn = std::forward<Func>(fn),
-                fallback = std::forward<VoidFunc>(fallback),
-                cbName = std::move(cbName)](auto &&...args) {
+        return [weakPtr, addr = address(), fn, fallback, cbName](auto &&...args) {
             if (weakPtr.expired() || !weakPtr.lock()) {
                 if (fallback) {
                     fallback();

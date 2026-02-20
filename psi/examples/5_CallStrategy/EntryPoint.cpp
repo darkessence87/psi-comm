@@ -48,7 +48,7 @@ int main()
 
     auto getTotal = [=](auto &strategy, int reqId, ResultCb cb) {
         std::cout << "getTotal reqId: " << reqId << std::endl;
-        strategy.processRequest([=](auto cb) { getComponentsData(reqId, cb); }, cb);
+        strategy.processRequest([getComponentsData, cb, reqId](auto cb2) { getComponentsData(reqId, cb2); }, cb);
     };
     const int N = 3;
 

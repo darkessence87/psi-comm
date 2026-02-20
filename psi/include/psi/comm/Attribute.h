@@ -28,8 +28,8 @@ public:
      * @param defaultValue initial value of attribute
      */
     Attribute(T &&defaultValue = T())
-        : m_value(std::forward<T>(defaultValue))
-        , m_event(std::make_unique<Event<T, T>>())
+        : m_event(std::make_unique<Event<T, T>>())
+        , m_value(std::forward<T>(defaultValue))
     {
     }
 
@@ -39,12 +39,12 @@ public:
      * @param event event to be used for notifications
      */
     Attribute(std::unique_ptr<Event<T, T>> event)
-        : m_value(T())
-        , m_event(std::move(event))
+        : m_event(std::move(event))
+        , m_value(T())
     {
     }
 
-    virtual ~Attribute() = default;
+    virtual ~Attribute() override = default;
 
     /**
      * @brief Returns current value of attribute
@@ -61,7 +61,7 @@ public:
      * Notification contains old and new values.
      * Notification will be sent after new value is saved in Attribute<T>.
      * 
-     * @param value 
+     * @param value T type
      */
     void setValue(T &&value)
     {
@@ -113,8 +113,8 @@ public:
     struct Attribute_Tests;
 
 private:
-    T m_value;
     std::unique_ptr<Event<T /*old value*/, T /*new value*/>> m_event;
+    T m_value;
 };
 
 } // namespace psi::comm

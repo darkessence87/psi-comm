@@ -97,8 +97,8 @@ struct ClientHolder {
     }
 
 private:
-    int m_clientIdCounter = 0;
     std::map<int, std::shared_ptr<Client>> m_clients;
+    int m_clientIdCounter = 0;
 };
 
 TEST(SafeCaller_Tests, TestRawPointer)

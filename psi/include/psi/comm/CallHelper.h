@@ -73,7 +73,7 @@ void runAll(const Requests<ResponseType> &requests, FinishCb<ResponseType> finis
         }
     };
 
-    int requestId = 0;
+    RequestId requestId = 0;
     for (const auto &req : requests) {
         ++requestId;
         (*responses)[requestId];
@@ -87,7 +87,7 @@ void runAll(const Requests<ResponseType> &requests, FinishCb<ResponseType> finis
  * Final callback will be called only after callbacks for all requestes are called.
  * 
  * @tparam Strategy type of class implements asyncronous calls
- * @tparam Response type of response. In fact, type of value sent in callbacks
+ * @tparam ResponseType type of response. In fact, type of value sent in callbacks
  * @param strat object of Strategy class which invokes provided functions asynchronously
  * @param requests list of requests
  * @param finishCb final callback to be called after all requests' callbacks are called
@@ -124,7 +124,7 @@ void runAllAsync(Strategy &strat, const Requests<ResponseType> &requests, Finish
         }
     };
 
-    int requestId = 0;
+    RequestId requestId = 0;
     for (const auto &req : requests) {
         ++requestId;
         (*responses)[requestId];

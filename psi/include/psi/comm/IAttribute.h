@@ -9,7 +9,7 @@ namespace psi::comm {
 /**
  * @brief Attribute class is used for notification listeners on change its value
  * 
- * @tparam T 
+ * @tparam T custom type
  */
 template <typename T>
 class IAttribute

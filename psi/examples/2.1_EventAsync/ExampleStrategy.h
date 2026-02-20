@@ -63,8 +63,8 @@ private:
     std::mutex m_mutex;
     std::condition_variable m_cond;
     std::queue<Func> m_queue;
-    std::atomic<bool> m_isActive = true;
     std::vector<std::thread> m_workThreads;
+    std::atomic<bool> m_isActive = true;
 };
 
 } // namespace psi::examples

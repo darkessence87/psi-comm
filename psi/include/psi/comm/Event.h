@@ -10,7 +10,7 @@ namespace psi::comm {
 /**
  * @brief Event class is used for notification listeners
  * 
- * @tparam Args 
+ * @tparam Args list of types
  */
 template <typename... Args>
 class Event : public IEvent<Args...>
@@ -42,7 +42,7 @@ public:
         }
 
         /// @brief Destroys the listener and removes it from holder's list
-        ~Listener()
+        ~Listener() override
         {
             if (auto holder = m_holder.lock()) {
                 holder->erase(std::next(m_identifier).base());
@@ -62,7 +62,7 @@ public:
     {
     }
 
-    ~Event()
+    ~Event() override
     {
         m_listeners->clear();
     }

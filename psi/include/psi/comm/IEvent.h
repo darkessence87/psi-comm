@@ -9,7 +9,7 @@ namespace psi::comm {
 /**
  * @brief IEvent provides interface for subscribe any number of listeners to notifications
  * 
- * @tparam Args 
+ * @tparam Args list of types
  */
 template <typename... Args>
 class IEvent
