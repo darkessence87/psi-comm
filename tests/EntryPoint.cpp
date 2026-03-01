@@ -13,8 +13,6 @@
     } while (0)
 #endif
 
-extern void register_all_tests();
-
 int main(int argc, char *argv[])
 {
     LOG_INFO_STATIC("Start tests main");
@@ -26,7 +24,6 @@ int main(int argc, char *argv[])
     auto opts = psi::test::TestLib::parse_args(args);
 
     psi::test::TestLib::init();
-    register_all_tests();
     int result = psi::test::TestLib::run(opts.filter);
 
     psi::test::TestLib::destroy();

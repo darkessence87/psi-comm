@@ -1,6 +1,12 @@
-cmake_minimum_required (VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)
 
-include (${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/psi-cmake/project.cmake)
-project (${projectName} LANGUAGES C CXX)
-include (${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/psi-cmake/main.cmake)
-include (${CMAKE_CURRENT_SOURCE_DIR}/3rdparty/psi-cmake/scan_tests.cmake)
+if(NOT DEFINED PSI_CMAKE_DIR)
+    include(${CMAKE_CURRENT_LIST_DIR}/3rdparty/psi-cmake/init.cmake OPTIONAL RESULT_VARIABLE psi_cmake_exists)
+    if(NOT psi_cmake_exists)
+        message(FATAL_ERROR "psi-cmake not found")
+    endif()
+endif()
+
+include(${PSI_CMAKE_DIR}/project.cmake)
+project(${projectName} LANGUAGES C CXX)
+include(${PSI_CMAKE_DIR}/main.cmake)
