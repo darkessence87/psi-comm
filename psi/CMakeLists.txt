@@ -9,7 +9,7 @@ target_include_directories(${target_lib}
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
-target_compile_features(${target_lib} INTERFACE cxx_std_20)
+psi_config_target(${target_lib})
 
 set(TEST_SRC
     tests/Attribute_Tests.cpp
