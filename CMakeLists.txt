@@ -17,4 +17,5 @@ endif()
 
 include(${PSI_CMAKE_DIR}/project.cmake)
 project(${projectName} LANGUAGES C CXX)
+psi_deps(tools)
 include(${PSI_CMAKE_DIR}/main.cmake)
