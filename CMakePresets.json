@@ -14,7 +14,9 @@
             "cacheVariables": {
                 "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
                 "CMAKE_C_COMPILER": "clang-cl",
-                "CMAKE_CXX_COMPILER": "clang-cl"
+                "CMAKE_CXX_COMPILER": "clang-cl",
+                "PSI_PRESET_NAME": "${presetName}",
+                "ENABLE_LOGGER": "ON"
             },
             "environment": {
                 "LLVM_LIB": "C:/Program Files/LLVM/lib/clang/22/lib/windows"
