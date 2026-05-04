@@ -1,0 +1,92 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_C_COMPILER": "clang-cl",
+                "CMAKE_CXX_COMPILER": "clang-cl"
+            },
+            "environment": {
+                "LLVM_LIB": "C:/Program Files/LLVM/lib/clang/22/lib/windows"
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug (clang-cl, no sanitizers)",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_ASAN_UBSAN": "OFF"
+            }
+        },
+        {
+            "name": "debug-asan",
+            "displayName": "Debug (clang-cl, ASAN+UBSan)",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_ASAN_UBSAN": "ON"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "Release (clang-cl)",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "ENABLE_ASAN_UBSAN": "OFF"
+            }
+        },
+        {
+            "name": "release-asan",
+            "displayName": "Release (clang-cl, ASAN+UBSan)",
+            "inherits": "base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "ENABLE_ASAN_UBSAN": "ON"
+            }
+        }
+    ],
+    "buildPresets": [
+        { "name": "debug",        "configurePreset": "debug" },
+        { "name": "debug-asan",   "configurePreset": "debug-asan" },
+        { "name": "release",      "configurePreset": "release" },
+        { "name": "release-asan", "configurePreset": "release-asan" }
+    ],
+    "testPresets": [
+        {
+            "name": "debug",
+            "configurePreset": "debug",
+            "output": { "outputOnFailure": true },
+            "execution": { "stopOnFailure": false }
+        },
+        {
+            "name": "debug-asan",
+            "configurePreset": "debug-asan",
+            "output": { "outputOnFailure": true },
+            "execution": { "stopOnFailure": false }
+        },
+        {
+            "name": "release",
+            "configurePreset": "release",
+            "output": { "outputOnFailure": true },
+            "execution": { "stopOnFailure": false }
+        },
+        {
+            "name": "release-asan",
+            "configurePreset": "release-asan",
+            "output": { "outputOnFailure": true },
+            "execution": { "stopOnFailure": false }
+        }
+    ]
+}

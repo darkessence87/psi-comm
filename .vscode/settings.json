@@ -1,0 +1,6 @@
+{
+    "cmake.useCMakePresets": "always",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/debug-asan/compile_commands.json",
+    "testMate.cpp.test.executables": "${workspaceFolder}/build/bin/**/PSI_TEST_*.exe",
+    "testMate.cpp.log.logpanel": true
+}
