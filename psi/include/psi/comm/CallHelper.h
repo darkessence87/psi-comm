@@ -8,29 +8,44 @@
 
 namespace psi::comm::call_helper {
 
+/// @brief Unique identifier assigned to each request in a batch.
 using RequestId = uint64_t;
 
+/// @brief Callback invoked once with the collected results of all requests.
 template <typename ResponseType>
 using FinishCb = std::function<void(std::vector<ResponseType>)>;
 
+/// @brief Per-request callback invoked with a single response value.
 template <typename ResponseType>
 using ResponseCb = std::function<void(const ResponseType &)>;
 
+/// @brief Callable that performs one request and calls its ResponseCb when done.
 template <typename ResponseType>
 using RequestFn = std::function<void(ResponseCb<ResponseType>)>;
 
+/**
+ * @brief Wraps a single RequestFn for use in a batch.
+ *
+ * @tparam ResponseType Type of the value produced by the request.
+ */
 template <typename ResponseType>
 struct Request final {
+    /**
+     * @brief Construct a Request from a callable.
+     * @param f Callable that performs the operation and invokes its callback on completion.
+     */
     Request(RequestFn<ResponseType> f)
         : fn(f)
     {
     }
-    RequestFn<ResponseType> fn;
+    RequestFn<ResponseType> fn; ///< The underlying request callable.
 };
 
+/// @brief Shared ownership handle to a Request.
 template <typename T>
 using RequestPtr = std::shared_ptr<Request<T>>;
 
+/// @brief Ordered list of requests to be processed as a batch.
 template <typename T>
 using Requests = std::vector<RequestPtr<T>>;
 
