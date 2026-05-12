@@ -4,6 +4,7 @@
 #include "AsyncCbStrategy.hpp"
 #include "CachedCbStrategy.h"
 
+#include <list>
 #include <optional>
 
 namespace psi::comm {

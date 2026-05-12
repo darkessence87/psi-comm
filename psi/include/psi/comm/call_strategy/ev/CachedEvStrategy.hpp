@@ -4,6 +4,7 @@
 #include "CachedEvStrategy.h"
 #include "FullySyncEvStrategy.hpp"
 
+#include <list>
 #include <optional>
 
 namespace psi::comm {

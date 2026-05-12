@@ -7,7 +7,7 @@
     },
     "configurePresets": [
         {
-            "name": "base",
+            "name": "windows-base",
             "hidden": true,
             "binaryDir": "${sourceDir}/build/${presetName}",
             "generator": "Ninja",
@@ -23,36 +23,85 @@
             }
         },
         {
-            "name": "debug",
+            "name": "windows-debug",
             "displayName": "Debug (clang-cl, no sanitizers)",
-            "inherits": "base",
+            "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "ENABLE_ASAN_UBSAN": "OFF"
             }
         },
         {
-            "name": "debug-asan",
+            "name": "windows-debug-asan",
             "displayName": "Debug (clang-cl, ASAN+UBSan)",
-            "inherits": "base",
+            "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
                 "ENABLE_ASAN_UBSAN": "ON"
             }
         },
         {
-            "name": "release",
+            "name": "windows-release",
             "displayName": "Release (clang-cl)",
-            "inherits": "base",
+            "inherits": "windows-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "ENABLE_ASAN_UBSAN": "OFF"
             }
         },
         {
-            "name": "release-asan",
+            "name": "windows-release-asan",
             "displayName": "Release (clang-cl, ASAN+UBSan)",
-            "inherits": "base",
+            "inherits": "windows-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "ENABLE_ASAN_UBSAN": "ON"
+            }
+        },
+        {
+            "name": "linux-base",
+            "hidden": true,
+            "binaryDir": "${sourceDir}/build/${presetName}",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_C_COMPILER": "gcc",
+                "CMAKE_CXX_COMPILER": "g++",
+                "PSI_PRESET_NAME": "${presetName}",
+                "ENABLE_LOGGER": "OFF"
+            }
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Debug (GCC, no sanitizers)",
+            "inherits": "linux-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_ASAN_UBSAN": "OFF"
+            }
+        },
+        {
+            "name": "linux-debug-asan",
+            "displayName": "Debug (GCC, ASAN+UBSan)",
+            "inherits": "linux-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_ASAN_UBSAN": "ON"
+            }
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Release (GCC)",
+            "inherits": "linux-base",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "ENABLE_ASAN_UBSAN": "OFF"
+            }
+        },
+        {
+            "name": "linux-release-asan",
+            "displayName": "Release (GCC, ASAN+UBSan)",
+            "inherits": "linux-base",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release",
                 "ENABLE_ASAN_UBSAN": "ON"
@@ -60,35 +109,119 @@
         }
     ],
     "buildPresets": [
-        { "name": "debug",        "configurePreset": "debug" },
-        { "name": "debug-asan",   "configurePreset": "debug-asan" },
-        { "name": "release",      "configurePreset": "release" },
-        { "name": "release-asan", "configurePreset": "release-asan" }
+        {
+            "name": "windows-debug",
+            "configurePreset": "windows-debug"
+        },
+        {
+            "name": "windows-debug-asan",
+            "configurePreset": "windows-debug-asan"
+        },
+        {
+            "name": "windows-release",
+            "configurePreset": "windows-release"
+        },
+        {
+            "name": "windows-release-asan",
+            "configurePreset": "windows-release-asan"
+        },
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug"
+        },
+        {
+            "name": "linux-debug-asan",
+            "configurePreset": "linux-debug-asan"
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release"
+        },
+        {
+            "name": "linux-release-asan",
+            "configurePreset": "linux-release-asan"
+        }
     ],
     "testPresets": [
         {
-            "name": "debug",
-            "configurePreset": "debug",
-            "output": { "outputOnFailure": true },
-            "execution": { "stopOnFailure": false }
+            "name": "windows-debug",
+            "configurePreset": "windows-debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
         },
         {
-            "name": "debug-asan",
-            "configurePreset": "debug-asan",
-            "output": { "outputOnFailure": true },
-            "execution": { "stopOnFailure": false }
+            "name": "windows-debug-asan",
+            "configurePreset": "windows-debug-asan",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
         },
         {
-            "name": "release",
-            "configurePreset": "release",
-            "output": { "outputOnFailure": true },
-            "execution": { "stopOnFailure": false }
+            "name": "windows-release",
+            "configurePreset": "windows-release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
         },
         {
-            "name": "release-asan",
-            "configurePreset": "release-asan",
-            "output": { "outputOnFailure": true },
-            "execution": { "stopOnFailure": false }
+            "name": "windows-release-asan",
+            "configurePreset": "windows-release-asan",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-debug-asan",
+            "configurePreset": "linux-debug-asan",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
+        },
+        {
+            "name": "linux-release-asan",
+            "configurePreset": "linux-release-asan",
+            "output": {
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": false
+            }
         }
     ]
 }
