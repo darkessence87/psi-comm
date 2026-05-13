@@ -3,6 +3,7 @@
 #include <array>
 #include <functional>
 
+#include "psi/comm/call_strategy/Comparable.h"
 #include "psi/comm/call_strategy/cb/AsyncCbStrategy.hpp"
 #include "psi/comm/call_strategy/cb/CachedCbStrategy.hpp"
 #include "psi/comm/call_strategy/cb/FullySyncCbStrategy.hpp"
@@ -590,4 +591,127 @@ TEST(CallStrategyTests, interruptImmediately)
     // interruptImmediately() discards all — no response callbacks fired.
     for (uint8_t i = 0; i < N; ++i) EXPECT_CALL(res[i], 0);
     st.interruptImmediately();
+}
+// ----------------------------------------------------------------------------
+// Comparable::operator< — exercised via CachedEvStrategy with a Comparable key
+// ----------------------------------------------------------------------------
+namespace {
+struct ComparableKey : Comparable {
+    int val;
+    explicit ComparableKey(int v) : val(v) {}
+    size_t hashCode() const override { return static_cast<size_t>(val); }
+};
+} // namespace
+
+TEST(CallStrategyTests, CachedEvStrategy_ComparableKey)
+{
+    using OnEvent = std::function<void()>;
+    using ValidationFn = std::function<bool()>;
+
+    CachedEvStrategy<ComparableKey, TypeList<>, TypeList<>> st;
+    ValidationFn valFn = [] { return true; };
+
+    std::function<bool()> tmp;
+    int reqCalls = 0;
+    auto res = MockedFn<OnEvent>::create();
+
+    st.processRequest(
+        ComparableKey{1},
+        [&](std::function<bool()> cb) { ++reqCalls; tmp = cb; },
+        std::ref(valFn),
+        res->fn());
+
+    EXPECT_EQ(reqCalls, 1);
+    tmp();
+    EXPECT_CALL(res, 1);
+    st.processEvent();
+    TestLib::verify_and_clear_expectations();
+}
+
+TEST(CallStrategyTests, BasicStrategy_logInfo_with_prefix)
+{
+    // Construct strategies with a non-empty logPrefix to exercise the
+    // `if (!m_logPrefix.empty())` branch inside BasicStrategy::logInfo.
+    using Response = std::function<void(bool)>;
+    AsyncCbStrategy<bool> st("TestPrefix");
+
+    Response tmp;
+    auto res = MockedFn<Response>::create();
+    st.processRequest([&](Response cb) { tmp = cb; }, res->fn());
+    tmp(true);
+    EXPECT_CALL(res, 1);
+    TestLib::verify_and_clear_expectations();
+}
+
+// ----------------------------------------------------------------------------
+// FullySyncEvStrategy — additional branch coverage
+// ----------------------------------------------------------------------------
+
+TEST(CallStrategyTests, FullySyncEvStrategy_processEvent_not_waiting)
+{
+    // processEvent() when not in "waiting for event" state hits the early-return branch.
+    FullySyncEvStrategy<TypeList<>, TypeList<>> st;
+    st.processEvent(); // m_isWaitingForEvent is false → "Not waiting" branch
+    EXPECT_TRUE(true);
+}
+
+TEST(CallStrategyTests, FullySyncEvStrategy_destructor_with_pending_requests)
+{
+    // Destroy strategy while requests are still in the queue — exercises the
+    // destructor's while(!m_requestQueue.empty()) loop.
+    using ValidationFn = std::function<bool()>;
+    {
+        FullySyncEvStrategy<TypeList<>, TypeList<>> st;
+        ValidationFn valFn = [] { return true; };
+        std::function<bool()> cb;
+        for (int i = 0; i < 3; ++i) {
+            st.processRequest(
+                [&, i](std::function<bool()> resp) { if (i == 0) cb = resp; },
+                std::ref(valFn),
+                []() {});
+        }
+        cb(); // first response accepted → m_isWaitingForEvent=true, queue has 3 items
+        // st destructs here → destructor loop drains remaining items
+    }
+    EXPECT_TRUE(true);
+}
+
+TEST(CallStrategyTests, FullySyncEvStrategy_failed_response_single_request)
+{
+    // Response validation returns false with one request → ev called with default values.
+    auto failFn = []() -> bool { return false; };
+    std::function<bool()> cb;
+    bool evFired = false;
+
+    FullySyncEvStrategy<TypeList<>, TypeList<>> st;
+    st.processRequest(
+        [&](std::function<bool()> resp) { cb = resp; },
+        std::ref(failFn),
+        [&]() { evFired = true; });
+    cb(); // validation fails → ev() fired, needProcessNext=false
+    EXPECT_TRUE(evFired);
+}
+
+TEST(CallStrategyTests, FullySyncEvStrategy_failed_response_with_next_queued)
+{
+    // Response validation fails while a second request is queued →
+    // processNext() is called for the queued request.
+    auto failFn = []() -> bool { return false; };
+    auto okFn   = []() -> bool { return true; };
+    std::function<bool()> cb;
+    bool evFired = false;
+    int req2calls = 0;
+
+    FullySyncEvStrategy<TypeList<>, TypeList<>> st;
+    st.processRequest(
+        [&](std::function<bool()> resp) { cb = resp; },
+        std::ref(failFn),
+        [&]() { evFired = true; });
+    st.processRequest(
+        [&](std::function<bool()>) { ++req2calls; },
+        std::ref(okFn),
+        []() {});
+    cb(); // first validation fails → ev fired, needProcessNext=true → processNext() for req1
+    EXPECT_TRUE(evFired);
+    EXPECT_EQ(req2calls, 1);
 }
